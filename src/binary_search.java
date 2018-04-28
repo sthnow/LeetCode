@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class binary_search {
 
 
-    int[] num = new int[]{1,2,3,4,5,6,7,8,9,10};
+    int[] num = new int[]{1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17};
 
     public static void main(String[] args){
         binary_search bs = new binary_search();
