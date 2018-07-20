@@ -10,24 +10,24 @@ public class ReverseInteger {
         }
     }
 
-    //ÊäÈë·½·¨£¬·µ»ØÒ»¸ö×Ö·û´®
+    //è¾“å…¥æ–¹æ³•ï¼Œè¿”å›ä¸€ä¸ªå­—ç¬¦ä¸²
     public String input() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("ÇëÊäÈëÊı×Ö");
+        System.out.println("è¯·è¾“å…¥æ•°å­—");
         String s = sc.next();
-        System.out.println("ÄãÊäÈëµÄÊı×ÖÎª" + s);
+        System.out.println("ä½ è¾“å…¥çš„æ•°å­—ä¸º" + s);
         sc.close();
         return s;
     }
 
 
     public int[] reverse(String s) {
-        //ÏÈ½«×Ö·û´®×ª»»ÎªStringÊı×é
+        //å…ˆå°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºStringæ•°ç»„
         String[] ss = s.split("");
 
 
-        //×Ö·ûÖ®¼äµÄ±È½Ï²»ÄÜÓÃ "==",Õâ¸öÊÇ±ÈÒıÓÃ
-        //´øÓĞ×Ö·ûµÄÇé¿ö
+        //å­—ç¬¦ä¹‹é—´çš„æ¯”è¾ƒä¸èƒ½ç”¨ "==",è¿™ä¸ªæ˜¯æ¯”å¼•ç”¨
+        //å¸¦æœ‰å­—ç¬¦çš„æƒ…å†µ
         if (ss[0].equals("+") || ss[0].equals("-")) {
             System.out.print(ss[0]);
 
@@ -35,7 +35,7 @@ public class ReverseInteger {
             int[] temp = num;
             int number = 0;
 
-            //½«StringÊı×é×ª»»ÎªintÊı×é
+            //å°†Stringæ•°ç»„è½¬æ¢ä¸ºintæ•°ç»„
             for (int i = 1; i <= ss.length - 1; i++) {
                 num[i - 1] = Integer.parseInt(ss[i]);
             }
@@ -45,13 +45,13 @@ public class ReverseInteger {
 
 
         } else {
-            //²»´øÓĞ×Ö·ûµÄÇé¿ö
+            //ä¸å¸¦æœ‰å­—ç¬¦çš„æƒ…å†µ
             int[] num = new int[ss.length];
             int[] temp = num;
             int number = 0;
 
 
-            //½«StringÊı×é×ª»»ÎªintÊı×é
+            //å°†Stringæ•°ç»„è½¬æ¢ä¸ºintæ•°ç»„
             for (int i = 0; i <= ss.length - 1; i++) {
                 num[i] = Integer.parseInt(ss[i]);
             }
@@ -62,7 +62,7 @@ public class ReverseInteger {
 
 
 
-    //·´×ªµÄ·½·¨,ÓÉreverseµ÷ÓÃ
+    //åè½¬çš„æ–¹æ³•,ç”±reverseè°ƒç”¨
     public int[] normalReverse(int[] num) {
         int number = 0;
         for (int i = num.length - 1; i >= 0; i--) {

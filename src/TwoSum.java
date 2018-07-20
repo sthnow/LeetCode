@@ -9,21 +9,21 @@ public class TwoSum {
         int target = twoSum.input2();
         String[] strings = twoSum.add(num, target);
 
-        System.out.print("ºÍ¶ÔÓ¦µÄĞòºÅÎª:" + strings[0] + "," + strings[1]);
+        System.out.print("å’Œå¯¹åº”çš„åºå·ä¸º:" + strings[0] + "," + strings[1]);
     }
 
-    //ÊäÈëÊı×éµÄ´úÂë
+    //è¾“å…¥æ•°ç»„çš„ä»£ç 
     public Integer[] input1() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("ÇëÊäÈëÊı×éµÄÖµ:");
+        System.out.println("è¯·è¾“å…¥æ•°ç»„çš„å€¼:");
         String[] numS = sc.next().split(",");
 
-        //ÏÈ½«×Ö·ûÊı×é×ª»»³É×Ö·û´®,ÔÚÊ¹ÓÃIntergerµÄparseInt·½·¨½«×Ö·û´®×ª»»³ÉÊı×Ö
+        //å…ˆå°†å­—ç¬¦æ•°ç»„è½¬æ¢æˆå­—ç¬¦ä¸²,åœ¨ä½¿ç”¨Intergerçš„parseIntæ–¹æ³•å°†å­—ç¬¦ä¸²è½¬æ¢æˆæ•°å­—
         //  int num =  Integer.parseInt(String.valueOf(numS));
         //  return num;
 
-        //½«×Ö·ûÊı×é×ª»»³ÉintÊı×é
+        //å°†å­—ç¬¦æ•°ç»„è½¬æ¢æˆintæ•°ç»„
         Integer[] num = new Integer[numS.length];
         for (int i = 0; i < numS.length; i++) {
             num[i] = Integer.valueOf(numS[i]);
@@ -31,16 +31,16 @@ public class TwoSum {
         return num;
     }
 
-    //ÊäÈëtargetÖµµÄ´úÂë
+    //è¾“å…¥targetå€¼çš„ä»£ç 
     public int input2() {
-        System.out.println("ÇëÊäÈë¶şÕßÖ®ºÍµÄÖµ:");
+        System.out.println("è¯·è¾“å…¥äºŒè€…ä¹‹å’Œçš„å€¼:");
         Scanner sc = new Scanner(System.in);
         String target = sc.next();
         sc.close();
         return Integer.valueOf(target);
     }
 
-    //´¦ÀíÂß¼­µÄ´úÂë
+    //å¤„ç†é€»è¾‘çš„ä»£ç 
     public String[] add(Integer[] num, int target) {
 
         int i, j = 0;
@@ -49,23 +49,23 @@ public class TwoSum {
         for (i = 0; i <= num.length - 1; i++) {
             for (j = i + 1; j <= num.length - 1; j++) {
                 if (num[i] + num[j] == target) {
-                    //Ò»¸öbreakÓï¾äÖ»ÄÜ½áÊøÒ»¸öÑ­»·
-                    //Èç¹ûÏëÒª½áÊøÍâ²ãÑ­»·ĞèÒª¼Óouter±êÇ©
+                    //ä¸€ä¸ªbreakè¯­å¥åªèƒ½ç»“æŸä¸€ä¸ªå¾ªç¯
+                    //å¦‚æœæƒ³è¦ç»“æŸå¤–å±‚å¾ªç¯éœ€è¦åŠ outeræ ‡ç­¾
                     break outer;
                 }
             }
         }
         /**
-         * Òì³£ÓĞÁ½ÖÖÇé¿ö:
-         *      1.Ä¿±êÖµÌ«´ó
-         *      2.Ä¿±êÖµÌ«Ğ¡
-         * ´¦ÀíÕâÁ½ÖÖÒì³£ÓĞÁ½ÖĞ·½·¨
-         *      1.ÒªÃ´ÔÚforÑ­»·ÀïÃæ±éÀú,ÏÈ±éÀúÒ»±éÃ¿¸öÖµµÄºÍÊÇ·ñÄÜÂú×ãtarget,ÔÚ±éÀúÒ»±éÑ°ÕÒtargetµÄÖµ
-         *      2.ÒªÃ´ÔÚÔ­À´µÄ´úÂëÄ©Î²¼ÓÉÏifÓï¾ä,ÒòÎª±éÀúÑ°ÕÒÍê³Éºó,Èç¹ûÃ»ÄÜÕÒµ½targetµÄÖµ,iºÍjµÄÖµ¶¼ÊÇ5,¸ù¾İÕâ¸öÌØµã¿ÉÒÔ¼ÓÉÏ
-         *      ÏÂÎÄµÄifÓï¾ä,»¹ÓĞtargetÌ«Ğ¡µÄÇé¿ö,´Ónum[0]¿ªÊ¼ËãÆğ¼´¿É
+         * å¼‚å¸¸æœ‰ä¸¤ç§æƒ…å†µ:
+         *      1.ç›®æ ‡å€¼å¤ªå¤§
+         *      2.ç›®æ ‡å€¼å¤ªå°
+         * å¤„ç†è¿™ä¸¤ç§å¼‚å¸¸æœ‰ä¸¤ä¸­æ–¹æ³•
+         *      1.è¦ä¹ˆåœ¨forå¾ªç¯é‡Œé¢éå†,å…ˆéå†ä¸€éæ¯ä¸ªå€¼çš„å’Œæ˜¯å¦èƒ½æ»¡è¶³target,åœ¨éå†ä¸€éå¯»æ‰¾targetçš„å€¼
+         *      2.è¦ä¹ˆåœ¨åŸæ¥çš„ä»£ç æœ«å°¾åŠ ä¸Šifè¯­å¥,å› ä¸ºéå†å¯»æ‰¾å®Œæˆå,å¦‚æœæ²¡èƒ½æ‰¾åˆ°targetçš„å€¼,iå’Œjçš„å€¼éƒ½æ˜¯5,æ ¹æ®è¿™ä¸ªç‰¹ç‚¹å¯ä»¥åŠ ä¸Š
+         *      ä¸‹æ–‡çš„ifè¯­å¥,è¿˜æœ‰targetå¤ªå°çš„æƒ…å†µ,ä»num[0]å¼€å§‹ç®—èµ·å³å¯
          */
         if (num[i - 1] + num[j - 2] < target || num[0] + num[1] > target)
-            throw new RuntimeException("Êı×éÄÚÁ½¸öÖµÖ®ºÍ²»ÄÜµÈÓÚ¶ÔÓ¦µÄÄ¿±êÖµ");
+            throw new RuntimeException("æ•°ç»„å†…ä¸¤ä¸ªå€¼ä¹‹å’Œä¸èƒ½ç­‰äºå¯¹åº”çš„ç›®æ ‡å€¼");
         // System.out.println(i + "," + j);
         strings[0] = String.valueOf(i);
         strings[1] = String.valueOf(j);
