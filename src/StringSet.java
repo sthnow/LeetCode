@@ -8,7 +8,7 @@ public class StringSet {
 
         //颠倒字符串
         for (int i = 0; i < array.length; i++) {
-            reArray[i] = array[array.length - i];
+            reArray[i] = array[array.length -1- i];
             sb.append(reArray[i]);
         }
         rs = sb.toString();
