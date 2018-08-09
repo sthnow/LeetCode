@@ -90,6 +90,11 @@ public class StringSet {
             return str[0].length();
         }
     }
+
+    public int reverse(int x) {
+        String num = Integer.toString(x);
+        return 1;
+    }
 }
 
 
