@@ -35,11 +35,11 @@ public class StringSet {
      */
     public int firstUniqChar(String s) {
         int[] freq = new int[26];
-        for (int i = 0; i < s.split("").length ; i++) {
+        for (int i = 0; i < s.split("").length; i++) {
             freq[s.charAt(i) - 'a']++;
         }
 
-        for (int i = 0; i < s.split("").length ; i++) {
+        for (int i = 0; i < s.split("").length; i++) {
             if (freq[s.charAt(i) - 'a'] == 1) {
                 return i;
             }
@@ -75,5 +75,21 @@ public class StringSet {
 
 */
     }
+
+    public int strStr(String haystack, String needle) {
+        String[] str = haystack.split(needle);
+        int length = str.length;
+        if (str.length == haystack.length()) {
+            if (needle.equals("")) {
+                return 0;
+            } else {
+                return -1;
+            }
+
+        } else {
+            return str[0].length();
+        }
+    }
 }
+
 
