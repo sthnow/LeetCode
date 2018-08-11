@@ -92,8 +92,29 @@ public class StringSet {
     }
 
     public int reverse(int x) {
-        String num = Integer.toString(x);
-        return 1;
+        long res = 0;
+        int flag = 0;
+
+        if (x < 0) {
+            x = x * -1;
+            flag = 1;
+        }
+        while (x / 10 > 0) {
+            res += x % 10;
+            res *= 10;
+            x = x / 10;
+        }
+        res += x;
+        if (flag == 1) {
+            res *= -1;
+        }
+
+        if (res < Integer.MIN_VALUE || res > Integer.MAX_VALUE) {
+            return 0;
+        }
+
+        return(int) res;
+
     }
 }
 
