@@ -217,17 +217,6 @@ public class StringSet {
      * @param nums2
      * @return
      */
-  /*  public int[] intersect(int[] nums1, int[] nums2) {
-
-        for (int i = 0; i < nums1.length - 1; i++) {
-            for (int j = 0; j < nums2.length - 1; j++) {
-                if(nums1[i] - nums2[j] == 0 ){
-
-                }
-            }
-        }
-    }
-    */
 
 
     /**
@@ -264,18 +253,75 @@ public class StringSet {
 
         int length = prices.length;
         int profit = 0;
-        if(length == 0){
+        if (length == 0) {
             return profit;
         }
 
         for (int i = 0; i < length - 1; i++) {
-            if((prices[i+1] - prices[i]) > 0 ){
-                profit += (prices[i+1] - prices[i]);
+            if ((prices[i + 1] - prices[i]) > 0) {
+                profit += (prices[i + 1] - prices[i]);
             }
         }
 
         return profit;
     }
+
+    /**
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: nums1 = [1,2,2,1], nums2 = [2,2]
+     * 输出: [2,2]
+     * 示例 2:
+     * <p>
+     * 输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+     * 输出: [4,9]
+     * 说明：
+     * <p>
+     * 输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致。
+     * 我们可以不考虑输出结果的顺序。
+     * 进阶:
+     * <p>
+     * 如果给定的数组已经排好序呢？你将如何优化你的算法？
+     * 如果 nums1 的大小比 nums2 小很多，哪种方法更优？
+     * 如果 nums2 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+         /*
+            先给两个数组排序，排序完后依次比较两个数字的大小。从0开始遍历数组，
+                若两个数字相等，则将数组存放在新的数组当中，脚标+1
+                若两个数字不等，则数字小的数组角标加一
+          */
+        int i = 0, j = 0, k = 0;
+
+        int[] result = new int[Math.min(nums1.length, nums2.length)];
+
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] == nums2[j]) {
+                result[k] = nums1[i];
+                k++;
+                i++;
+                j++;
+            } else {
+                if (nums1[i] < nums2[j]) {
+                    i++;
+                } else {
+                    j++;
+                }
+            }
+
+
+        }
+        return Arrays.copyOf(result, k);
+    }
+
 }
 
 
