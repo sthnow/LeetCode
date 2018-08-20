@@ -322,6 +322,70 @@ public class StringSet {
         return Arrays.copyOf(result, k);
     }
 
+    /**
+     * 最长公共前缀
+     * 编写一个函数来查找字符串数组中的最长公共前缀。
+     *
+     * 如果不存在公共前缀，返回空字符串 ""。
+     *
+     * 示例 1:
+     *
+     * 输入: ["flower","flow","flight"]
+     * 输出: "fl"
+     * 示例 2:
+     *
+     * 输入: ["dog","racecar","car"]
+     * 输出: ""
+     * 解释: 输入不存在公共前缀。
+     * 说明:
+     *
+     * 所有输入只包含小写字母 a-z 。
+     * @param strs
+     * @return
+     */
+   /* public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0) return "";
+        if(strs.length == 1) return strs[0];
+
+
+    }
+    */
+
+    /**
+     * 验证回文字符串
+     * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+     *
+     * 说明：本题中，我们将空字符串定义为有效的回文串。
+     *
+     * 示例 1:
+     *
+     * 输入: "A man, a plan, a canal: Panama"
+     * 输出: true
+     * 示例 2:
+     *
+     * 输入: "race a car"
+     * 输出: false
+     * @param s
+     * @return
+     */
+
+    public boolean isPalindrome(String s) {
+        //将字符串化为小写字母
+        String sLow = s.toLowerCase();
+        //去掉所有的符号
+        String sRep = sLow.replaceAll("[^a-z0-9]","");
+        //分割字符串
+        String[] s1 = sRep.split("");
+
+        boolean flag = true;
+        for (int i = 0; i < s1.length; i++) {
+            if(!s1[i].equals(s1[s1.length -1 - i])) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
 }
 
 
