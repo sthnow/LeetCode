@@ -386,6 +386,83 @@ public class StringSet {
         }
         return flag;
     }
+
+
+    /**
+     *最长公共前缀
+     * 编写一个函数来查找字符串数组中的最长公共前缀。
+     *
+     * 如果不存在公共前缀，返回空字符串 ""。
+     *
+     * 示例 1:
+     *
+     * 输入: ["flower","flow","flight"]
+     * 输出: "fl"
+     * 示例 2:
+     *
+     * 输入: ["dog","racecar","car"]
+     * 输出: ""
+     * 解释: 输入不存在公共前缀。
+     * 说明:
+     *
+     * 所有输入只包含小写字母 a-z 。
+     * @param strs
+     * @return
+     */
+    public String longestCommonPrefix(String[] strs) {
+
+       /* if(strs.length == 0){
+            return "";
+        }
+
+        String s0 = strs[0];
+        int minIdex = 0;
+        int minSize = 0;
+        String comPre = "";
+        minIdex = strs[0].length();
+
+        for (int i = 0; i < strs.length ; i++) {
+            if(strs[i].length() == 0){
+                return "";
+            }
+
+            if(strs[i].length() < minIdex){
+                minIdex = strs[i].length();
+            }
+        }
+
+        for (int i = 0; i < minIdex ; i++) {
+            for (int j = 0; j < strs.length; j++) {
+                if(!(s0.substring(0,i).equals(strs[j].substring(0,i)))){
+                    if(i == 1){
+                        return "";
+                    }
+                    minSize = i;
+                    comPre = strs[0].substring(0,minSize);
+                    break;
+                }
+            }
+        }
+        return comPre;
+*/
+
+        StringBuilder prefix = new StringBuilder();
+        if (strs != null && strs.length > 0) {
+            Arrays.sort(strs);
+            char[] a = strs[0].toCharArray();
+            char[] b = strs[strs.length - 1].toCharArray();
+            for (int i = 0; i < a.length; i++) {
+                if (b.length > i && b[i] == a[i]) {
+                    prefix.append(b[i]);
+                } else {
+                    return prefix.toString();
+                }
+            }
+        }
+        return prefix.toString();
+    }
+
+
 }
 
 
