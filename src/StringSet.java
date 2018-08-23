@@ -463,6 +463,77 @@ public class StringSet {
     }
 
 
+    /**
+     *  计数质数
+     * 统计所有小于非负整数 n 的质数的数量。
+     *
+     * 示例:
+     *
+     * 输入: 10
+     * 输出: 4
+     * 解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+     */
+
+    public int countPrimes(int n) {
+    /*    int count = 0;
+        boolean flag = false;
+
+        if(n == 0 || n==1){
+            return 0;
+        }
+
+        for (int i = 2; i < n; i++) {
+            for (int j = 2; j < i; j++) {
+                if(i % j == 0 && i != j){
+                    count++;
+                    break;
+                }
+
+            }
+        }
+        return n-2-count;
+        */
+
+
+        int count = 0;
+
+        boolean flag[] = new boolean[n];//初始全都false
+
+        for (int i = 2; i < n ; i++)
+            if (flag[i] == false){
+                count ++;
+                for (int j = 1; j * i < n ; j++)
+                    flag[j * i] = true;
+            }
+        return count;
+    }
+
+    /**
+     *  3的幂
+     * 给定一个整数，写一个函数来判断它是否是 3 的幂次方。
+     *
+     * 示例 1:
+     *
+     * 输入: 27
+     * 输出: true
+     * 示例 2:
+     *
+     * 输入: 0
+     * 输出: false
+     * 示例 3:
+     *
+     * 输入: 9
+     * 输出: true
+     * 示例 4:
+     *
+     * 输入: 45
+     * 输出: false
+     * 进阶：
+     * 你能不使用循环或者递归来完成本题吗？
+     */
+    public boolean isPowerOfThree(int n) {
+
+    }
 }
 
 
