@@ -9,21 +9,45 @@ public class ListQ {
          }
      }
  */
+
+    /**
+     *反转链表
+     * 反转一个单链表。
+     *
+     * 示例:
+     *
+     * 输入: 1->2->3->4->5->NULL
+     * 输出: 5->4->3->2->1->NULL
+     * 进阶:
+     * 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+     * @param head
+     * @return
+     */
     public ListNode reverseList(ListNode head) {
-        if (head == null)
-            return null;
+//        if (head == null)
+//            return null;
+//
+//        ListNode pre = null;
+//
+//        while (head != null) {
+//            //将下一个结点给tem
+//            ListNode tem = head.next;
+//            //将头结点指向null
+//            head.next = pre;
+//            //将当前结点给pre
+//            pre = head;
+//            //将下一个结点作为头结点
+//            head = tem;
+//        }
+//        return pre;
 
         ListNode pre = null;
-
-        while (head != null) {
-            //将下一个结点给tem
-            ListNode tem = head.next;
-            //将头结点指向null
-            head.next = pre;
-            //将当前结点给pre
-            pre = head;
-            //将下一个结点作为头结点
-            head = tem;
+        ListNode cur = head;
+        while(cur != null){
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
         }
         return pre;
     }
@@ -154,6 +178,106 @@ public class ListQ {
         return false;
     }
 
+    /**
+     * 合并两个有序链表
+     * 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     *
+     * 示例：
+     *
+     * 输入：1->2->4, 1->3->4
+     * 输出：1->1->2->3->4->4
+     * @param l1
+     * @param l2
+     * @return
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1 == null || l2 == null)
+            return null;
+        
+        return null;
+
+    }
+
+
+    /**
+     *回文链表
+     * 请判断一个链表是否为回文链表。
+     *
+     * 示例 1:
+     *
+     * 输入: 1->2
+     * 输出: false
+     * 示例 2:
+     *
+     * 输入: 1->2->2->1
+     * 输出: true
+     * 进阶：
+     * 你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+     * @param head
+     * @return
+     */
+    /*
+    * 验证回文链表
+    * 使用一个快指针，一个慢指针
+    * 快指针一次走两步，慢指针一次走一步
+    * 当快指针遍历完链表后，慢指针正好在链表的中间
+    * */
+    public boolean isPalindrome(ListNode head) {
+
+        if(head == null || head.next == null)
+            return true;
+
+        ListNode fast = head;
+        ListNode slow = fast;
+
+        while (fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        //将slow以后的链表翻转
+
+        ListNode pre = null;
+
+//      这句话很关键，如果这里slow没有next
+        ListNode cur = slow.next;
+        while (cur != null){
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+
+//      如果slow没有next，会在while这里报错
+//        原因是头节点的指向本应是下一个结点，但是因为没有next的原因，将head结点也反向了
+//         使得head结点成为翻转链表后的最后一个结点，head的next指向了null
+//        而pre结点是反转后链表的头结点，一个头结点和尾结点遍历比较，很定会出现空指针异常
+        while (pre != null){
+            if(pre.val != head.val){
+                return false;
+            }
+            pre = pre.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 单向链表静态内部类
+     * 静态内部类可以访问外部类中除了private修饰的其他成员
+     * 非静态内部类可以访问外部类中的一切成员
+     */
     public static class ListNode {
         //结点的属性
         Object val;
