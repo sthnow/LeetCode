@@ -1,6 +1,6 @@
 public class ListQ {
 
-    /* public ListNode printList(ListNode listNode){
+    /* public ListQ.ListNode printList(ListQ.ListNode listNode){
          if(listNode == null)
              return null;
          while(listNode != null){
@@ -31,35 +31,50 @@ public class ListQ {
     /**
      * 删除链表的倒数第N个节点
      * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
-     *
+     * <p>
      * 示例：
-     *
+     * <p>
      * 给定一个链表: 1->2->3->4->5, 和 n = 2.
-     *
+     * <p>
      * 当删除了倒数第二个节点后，链表变为 1->2->3->5.
      * 说明：
-     *
+     * <p>
      * 给定的 n 保证是有效的。
-     *
+     * <p>
      * 进阶：
-     *
+     * <p>
      * 你能尝试使用一趟扫描实现吗？
+     *
      * @param head
      * @param n
      * @return
      */
-//    public ListNode removeNthFromEnd(ListNode head, int n) {
-//
-//
-//        if ( n <= 0) {
-//            System.out.println("超出链表范围");
-//            return null;
-//        }
-//        for (int i = 0; i < n; i++) {
-//
-//        }
-//        return null;
-//    }
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+
+        if (n <= 0) {
+            System.out.println("超出链表范围");
+            return null;
+        }
+
+        ListNode preNode = new ListNode(0, head);
+        ListNode tem = preNode;
+        for (int i = 0; i < n; i++) {
+            tem = tem.next;
+        }
+
+//      如果删除的是第一个结点
+        if (tem.next == null) {
+            head = head.next;
+        }
+        while (tem.next != null) {
+            preNode = preNode.next;
+            tem = tem.next;
+        }
+        preNode.next = preNode.next.next;
+
+        return head;
+    }
 
     /**
      * 删除链表中的节点
@@ -101,11 +116,14 @@ public class ListQ {
      * 你能否不使用额外空间解决此题？
      */
     public boolean hasCycle(ListNode head) {
+        /*
+         * 通过循环判断
+         * */
         //  if(head == null){
         //      return false;
         //  }
         //  int n = 0;
-        //  ListNode first = head;
+        //  ListQ.ListNode first = head;
         // boolean flag = false;
         //  while(head.next != null  ){
 
@@ -119,6 +137,9 @@ public class ListQ {
         //  }
         //  return flag;
 
+        /*
+         * 通过快慢指针判断
+         * */
         ListNode fast = head, slow = head;
         if (head == null || head.next == null)
             return false;
@@ -131,5 +152,71 @@ public class ListQ {
                 return true;
         }
         return false;
+    }
+
+    public static class ListNode {
+        //结点的属性
+        Object val;
+        ListNode next = null;
+
+
+        //三个构造器
+        public ListNode(Object data) {
+            this.val = data;
+        }
+
+        public ListNode() {
+        }
+
+        public ListNode(Object data, ListNode next) {
+            this.val = data;
+            this.next = next;
+        }
+
+        //添加结点的方法
+        public void addNode(Object data) {
+            if (this.next == null) {
+                this.next = new ListNode(data, null);
+            } else {
+                this.next.addNode(data);
+            }
+        }
+
+        public void printList() {
+            System.out.print(this.val);
+            if (this.next != null) {
+                System.out.print("->");
+                this.next.printList();
+            }
+        }
+
+        public int length() {
+            //第一种方法
+            //如果传入的对象为null，返回长度0
+            if(this == null)
+                return 0;
+            //如果不为null，起码链表的长度为1，如果该结点指向不为null，则长度+1
+            int count = 1;
+            if(this.next != null) {
+
+                count = this.next.length() ;
+            }
+
+
+            return count+1;
+
+
+    //        int length = 0;
+    //        ListQ.ListNode currentNode = this;
+    //        if (this == null)
+    //            return 0;
+    //        while (currentNode != null) {
+    //            length++;
+    //            currentNode = currentNode.next;
+    //        }
+    //        return length;
+        }
+
+
     }
 }

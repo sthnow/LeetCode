@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class StringSet {
+public class StringQ {
     public void reverseString(String s) {
         //定义变量
         String rs = "";
