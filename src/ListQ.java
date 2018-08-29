@@ -11,15 +11,16 @@ public class ListQ {
  */
 
     /**
-     *反转链表
+     * 反转链表
      * 反转一个单链表。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: 1->2->3->4->5->NULL
      * 输出: 5->4->3->2->1->NULL
      * 进阶:
      * 你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+     *
      * @param head
      * @return
      */
@@ -43,7 +44,7 @@ public class ListQ {
 
         ListNode pre = null;
         ListNode cur = head;
-        while(cur != null){
+        while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
@@ -181,56 +182,96 @@ public class ListQ {
     /**
      * 合并两个有序链表
      * 将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
-     *
+     * <p>
      * 示例：
-     *
+     * <p>
      * 输入：1->2->4, 1->3->4
      * 输出：1->1->2->3->4->4
+     *
      * @param l1
      * @param l2
      * @return
      */
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if(l1 == null || l2 == null)
-            return null;
-        
-        return null;
+        if (l1 == null)
+            return l2;
+        if (l2 == null)
+            return l1;
+        ListNode head = null;
+        ListNode cur = head;
+        if ((int) l1.val <= (int) l2.val) {
+            head = l1;
+            cur = head;
+            l1 = l1.next;
+        } else {
+            head = l2;
+            cur = head;
+            l2 = l2.next;
+        }
+
+        while (l1 != null && l2 != null) {
+            /*注意这里的判断
+             * 如果while中是或的关系，那么在if语句中必须先判断l1是否为null。
+             * 如果在if中先判断的是l1的值，那么当l1为null的时候还比较值，就会发生空指针异常！！！*/
+            if ((int) l1.val <= (int) l2.val) {
+                cur.next = l1;
+                cur = cur.next;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                cur = cur.next;
+                l2 = l2.next;
+            }
+
+        }
+        while (l1 != null) {
+            cur.next = l1;
+            cur = cur.next;
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            cur.next = l2;
+            cur = cur.next;
+            l2 = l2.next;
+        }
+        return head;
 
     }
 
 
     /**
-     *回文链表
+     * 回文链表
      * 请判断一个链表是否为回文链表。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: 1->2
      * 输出: false
      * 示例 2:
-     *
+     * <p>
      * 输入: 1->2->2->1
      * 输出: true
      * 进阶：
      * 你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+     *
      * @param head
      * @return
      */
     /*
-    * 验证回文链表
-    * 使用一个快指针，一个慢指针
-    * 快指针一次走两步，慢指针一次走一步
-    * 当快指针遍历完链表后，慢指针正好在链表的中间
-    * */
+     * 验证回文链表
+     * 使用一个快指针，一个慢指针
+     * 快指针一次走两步，慢指针一次走一步
+     * 当快指针遍历完链表后，慢指针正好在链表的中间
+     * */
     public boolean isPalindrome(ListNode head) {
 
-        if(head == null || head.next == null)
+        if (head == null || head.next == null)
             return true;
 
         ListNode fast = head;
         ListNode slow = fast;
 
-        while (fast.next != null && fast.next.next != null){
+        while (fast.next != null && fast.next.next != null) {
             fast = fast.next.next;
             slow = slow.next;
         }
@@ -241,7 +282,7 @@ public class ListQ {
 
 //      这句话很关键，如果这里slow没有next
         ListNode cur = slow.next;
-        while (cur != null){
+        while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
             pre = cur;
@@ -252,8 +293,8 @@ public class ListQ {
 //        原因是头节点的指向本应是下一个结点，但是因为没有next的原因，将head结点也反向了
 //         使得head结点成为翻转链表后的最后一个结点，head的next指向了null
 //        而pre结点是反转后链表的头结点，一个头结点和尾结点遍历比较，很定会出现空指针异常
-        while (pre != null){
-            if(pre.val != head.val){
+        while (pre != null) {
+            if (pre.val != head.val) {
                 return false;
             }
             pre = pre.next;
@@ -261,6 +302,52 @@ public class ListQ {
         }
         return true;
     }
+
+
+    /**
+     * 奇偶链表
+     * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+     * <p>
+     * 请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: 1->2->3->4->5->NULL
+     * 输出: 1->3->5->2->4->NULL
+     * 示例 2:
+     * <p>
+     * 输入: 2->1->3->5->6->4->7->NULL
+     * 输出: 2->3->6->7->1->5->4->NULL
+     * 说明:
+     * <p>
+     * 应当保持奇数节点和偶数节点的相对顺序。
+     * 链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode oddEvenList(ListNode head) {
+        ListNode pre = head;
+        ListNode cur = pre.next;
+
+        while (cur != null) {
+            int count = 0;
+            count += 1;
+
+            pre.next = cur.next;
+            pre = pre.next;
+            pre.next = cur;
+            cur = cur.next;
+
+
+        }
+        return head;
+    }
+
+
+
+
+
 
 
 
@@ -317,28 +404,28 @@ public class ListQ {
         public int length() {
             //第一种方法
             //如果传入的对象为null，返回长度0
-            if(this == null)
+            if (this == null)
                 return 0;
             //如果不为null，起码链表的长度为1，如果该结点指向不为null，则长度+1
             int count = 1;
-            if(this.next != null) {
+            if (this.next != null) {
 
-                count = this.next.length() ;
+                count = this.next.length();
             }
 
 
-            return count+1;
+            return count + 1;
 
 
-    //        int length = 0;
-    //        ListQ.ListNode currentNode = this;
-    //        if (this == null)
-    //            return 0;
-    //        while (currentNode != null) {
-    //            length++;
-    //            currentNode = currentNode.next;
-    //        }
-    //        return length;
+            //        int length = 0;
+            //        ListQ.ListNode currentNode = this;
+            //        if (this == null)
+            //            return 0;
+            //        while (currentNode != null) {
+            //            length++;
+            //            currentNode = currentNode.next;
+            //        }
+            //        return length;
         }
 
 
