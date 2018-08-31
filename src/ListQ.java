@@ -327,21 +327,19 @@ public class ListQ {
      * @return
      */
     public ListNode oddEvenList(ListNode head) {
-        ListNode pre = head;
-        ListNode cur = pre.next;
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode evenHeader = even;
 
-        while (cur != null) {
-            int count = 0;
-            count += 1;
-
-            pre.next = cur.next;
-            pre = pre.next;
-            pre.next = cur;
-            cur = cur.next;
-
-
+        while(odd.next != null &&even.next != null  ){
+            odd.next = even.next;
+            odd = odd.next;
+            even.next = odd.next;
+            even = even.next;
         }
+            odd.next = evenHeader;
         return head;
+
     }
 
 
