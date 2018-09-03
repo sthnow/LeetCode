@@ -7,3 +7,6 @@
 *.iml
 out
 gen
+target/classes/ArrayQ$MoveZeroes.class
+target/classes/ArrayQ$binary_search.class
+*.class
