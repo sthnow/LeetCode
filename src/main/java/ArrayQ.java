@@ -1,21 +1,109 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class ArrayQ {
 
 
+    /**
+     * 三数之和
+     * 给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+     * <p>
+     * 注意：答案中不可以包含重复的三元组。
+     * <p>
+     * 例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     * <p>
+     * 满足要求的三元组集合为：
+     * [
+     * [-1, 0, 1],
+     * [-1, -1, 2]
+     * ]
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        int i, j, k, reverse;
+
+        for (i = 0; i < nums.length; i++) {
+            j = i + 1;
+            k = nums.length - 1;
+            reverse = -nums[i];
+
+            while (j < k) {
+                if (nums[j] + nums[k] == reverse) {
+                    List<Integer> tem = new ArrayList<Integer>();
+                    tem.add(nums[i]);
+                    tem.add(nums[j]);
+                    tem.add(nums[k]);
+                    result.add(tem);
+                    j++;
+
+                    //如果在j<k的前提下, j和之前的数相等,则后移一位
+                    while (j < k && nums[j - 1] == nums[j]) {
+                        j++;
+                    }
+                    //第一个数没变,若变第二个数则第三个数必须也要变,否则三者之和不为0
+                    k--;
+
+                    //如果三者之和不为0,保持第一个数不变,变剩下的两个
+                } else if (nums[j] + nums[k] < reverse) {
+                    j++;
+                    while (j < k && nums[j - 1] == nums[j]) {
+                        j++;
+                    }
+
+                    //保证了第二个数和之前的不一样,那么三者和为0的话,第三个数必定和之前不一样
+                } else {
+                    k--;
+                }
+            }
+
+            //变动第一个数
+            //首先保证i不能越界
+            while (i +1 < nums.length -2 && nums[i] == nums[i + 1]) {
+                i++;
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * 最长回文子串
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
+     *
+     * 示例 1：
+     *
+     * 输入: "babad"
+     * 输出: "bab"
+     * 注意: "aba"也是一个有效答案。
+     * 示例 2：
+     *
+     * 输入: "cbbd"
+     * 输出: "bb"
+     * @param s
+     * @return
+     */
+//    public String longestPalindrome(String s) {
+//
+//    }
+
     public static class binary_search {
 
 
-        int[] num = new int[]{1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20};
+        int[] num = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 
-        public static void main(String[] args){
+        public static void main(String[] args) {
             binary_search bs = new binary_search();
-            bs.search(bs.input(),bs.num);
+            bs.search(bs.input(), bs.num);
 
         }
 
-        public int input(){
+        public int input() {
             Scanner sc = new Scanner(System.in);
             System.out.println("请输入数字");
             String s = sc.next();
@@ -25,27 +113,27 @@ public class ArrayQ {
             return num;
         }
 
-        public void search(int target,int[] num){
+        public void search(int target, int[] num) {
 
             int low = 0;
             int counter = 0;
-            int high = num.length-1;
+            int high = num.length - 1;
 
-            while(low <= high){
+            while (low <= high) {
 
 
                 counter = counter + 1;
 
-                int mid = (low + high)/2;
+                int mid = (low + high) / 2;
                 int guess = num[mid];
-                if(guess == target){
-                    System.out.println("已找到该数字,迭代了：" + counter + " 次" );
+                if (guess == target) {
+                    System.out.println("已找到该数字,迭代了：" + counter + " 次");
                     break;
-                } else if(guess < target && guess < num[high]){
+                } else if (guess < target && guess < num[high]) {
                     low = mid + 1;
-                } else if(guess > target && guess > num[low]){
+                } else if (guess > target && guess > num[low]) {
                     high = mid - 1;
-                } else{
+                } else {
                     System.out.println("未能找到该数字");
                     break;
 
@@ -73,13 +161,13 @@ public class ArrayQ {
         public void moveZeroes(int[] nums) {
 
             int count = 0;
-            for(int i = 0; i<nums.length; i++){
-                if( nums[i] != 0){
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] != 0) {
                     nums[count] = nums[i];
                     count++;
                 }
             }
-            while(count < nums.length  ){
+            while (count < nums.length) {
                 nums[count++] = 0;
             }
 
@@ -91,52 +179,53 @@ public class ArrayQ {
     public static class num2eng {
         //定义了若干个成员变量
         //该成员变量为类变量
-        private String[] eng = {"", "one", "two", "three", "four", "five", "six","seven", "eight", "nine"};
-        private String[] Number = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy","eighty", "ninety"};
+        private String[] eng = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        private String[] Number = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
         private String[] ShiWei = {"", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
-        private String[] Qian   = {"", "thousand","thousand","thousand","thousand","thousand","thousand","thousand","thousand","thousand" };
-        private String[] Bai    = {"", "hundred", "hundred","hundred","hundred","hundred","hundred","hundred","hundred","hundred"};
+        private String[] Qian = {"", "thousand", "thousand", "thousand", "thousand", "thousand", "thousand", "thousand", "thousand", "thousand"};
+        private String[] Bai = {"", "hundred", "hundred", "hundred", "hundred", "hundred", "hundred", "hundred", "hundred", "hundred"};
 
         //定义了名为divide的方法
         //分割数字的位数
         public static int[] divide(int num) {
             int num30 = num / 1000;
-            int num20 = (num-num30*1000) / 100;
-            int num10 = (num-num30*1000-num20*100) / 10;
+            int num20 = (num - num30 * 1000) / 100;
+            int num10 = (num - num30 * 1000 - num20 * 100) / 10;
             int num0 = num - num30 * 1000 - num20 * 100 - num10 * 10;
             //定义一个包含了num30，num20，num10，num0的数组
             int[] numSum = new int[]{num30, num20, num10, num0};
-            return  numSum;
+            return numSum;
+        }
+
+        public static void main(String[] args) {
+            //使用构造器构造了一个名为ne的num2eng的类
+            num2eng ne = new num2eng();
+            System.out.print(ne.toEngStr());
+
         }
 
         //定义了名为toEngStr的方法
         //将分割后的数字转换成英文
-       public  String toEngStr(){
-           String result = "";
-           int[] numSum ;
-           Scanner sc = new Scanner(System.in);
-           System.out.println("请输入数字：");
-           int n = sc.nextInt();
-           sc.close();
-           numSum = divide(n);
+        public String toEngStr() {
+            String result = "";
+            int[] numSum;
+            Scanner sc = new Scanner(System.in);
+            System.out.println("请输入数字：");
+            int n = sc.nextInt();
+            sc.close();
+            numSum = divide(n);
 
-           //根据位数判断该输出什么
-           if ((numSum[2] == 1) && numSum[1] != 1) {
-               result += ShiWei[numSum[3]];
-           }else if((numSum[2] == 1) && numSum [1] == 1){
-               result += eng[numSum[1]] + " " + Bai[numSum[1]] + " " + ShiWei[numSum[3]];
-           }else if(numSum[3] == 0) {
-               result += "zero";
-           }else {
-               result += eng[numSum[0]] + " " + Qian[numSum[0]] + " " + eng[numSum[1]] + " " + Bai[numSum[1]] + " " + Number[numSum[2]] + " " + eng[numSum[3]];
-           }return  result;
-        }
-
-        public static void main(String[] args) {
-           //使用构造器构造了一个名为ne的num2eng的类
-            num2eng ne = new num2eng();
-            System.out.print(ne.toEngStr());
-
+            //根据位数判断该输出什么
+            if ((numSum[2] == 1) && numSum[1] != 1) {
+                result += ShiWei[numSum[3]];
+            } else if ((numSum[2] == 1) && numSum[1] == 1) {
+                result += eng[numSum[1]] + " " + Bai[numSum[1]] + " " + ShiWei[numSum[3]];
+            } else if (numSum[3] == 0) {
+                result += "zero";
+            } else {
+                result += eng[numSum[0]] + " " + Qian[numSum[0]] + " " + eng[numSum[1]] + " " + Bai[numSum[1]] + " " + Number[numSum[2]] + " " + eng[numSum[3]];
+            }
+            return result;
         }
 
     }
@@ -149,7 +238,7 @@ public class ArrayQ {
         private int[] greater;
 
         public static void main(String[] args) {
-            int[] result =qs.sort(new int[]{6,5,4,3,2,1});
+            int[] result = qs.sort(new int[]{6, 5, 4, 3, 2, 1});
             System.out.println(Arrays.toString(result));
         }
 
@@ -171,14 +260,14 @@ public class ArrayQ {
                 for (int i = 0; i < num.length - 1; i++) {
                     int base = num[0];
                     if (base >= num[i]) {
-                         less = new int[i + 1];
+                        less = new int[i + 1];
                         for (int j = 0; j <= i; j++) {
                             less[j] = num[j];
                         }
                     }
 
                     if (base < num[i]) {
-                         greater = new int[i + 1];
+                        greater = new int[i + 1];
                         for (int j = 0; j <= i; j++) {
                             less[j] = num[j];
                         }
@@ -267,7 +356,6 @@ public class ArrayQ {
         }
 
 
-
         //反转的方法,由reverse调用
         public int[] normalReverse(int[] num) {
             int number = 0;
@@ -290,7 +378,7 @@ public class ArrayQ {
         public int singleNumber(int[] nums) {
 
             int xor = 0;
-            for (int i = 0; i < nums.length; i++ ) {
+            for (int i = 0; i < nums.length; i++) {
                 xor ^= nums[i];
             }
             return xor;
@@ -352,15 +440,14 @@ public class ArrayQ {
                     }
                 }
             }
-            /**
+            /* *
              * 异常有两种情况:
              *      1.目标值太大
              *      2.目标值太小
              * 处理这两种异常有两中方法
              *      1.要么在for循环里面遍历,先遍历一遍每个值的和是否能满足target,在遍历一遍寻找target的值
              *      2.要么在原来的代码末尾加上if语句,因为遍历寻找完成后,如果没能找到target的值,i和j的值都是5,根据这个特点可以加上
-             *      下文的if语句,还有target太小的情况,从num[0]开始算起即可
-             */
+             *      下文的if语句,还有target太小的情况,从num[0]开始算起即可*/
             if (num[i - 1] + num[j - 2] < target || num[0] + num[1] > target)
                 throw new RuntimeException("数组内两个值之和不能等于对应的目标值");
             // System.out.println(i + "," + j);
@@ -369,4 +456,5 @@ public class ArrayQ {
             return strings;
         }
     }
+
 }
