@@ -3,8 +3,95 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+
 public class ArrayQ {
 
+    /**
+     * 2的幂
+     * 给定一个整数，编写一个函数来判断它是否是 2 的幂次方。
+     *
+     * 示例 1:
+     *
+     * 输入: 1
+     * 输出: true
+     * 解释: 20 = 1
+     * 示例 2:
+     *
+     * 输入: 16
+     * 输出: true
+     * 解释: 24 = 16
+     * 示例 3:
+     *
+     * 输入: 218
+     * 输出: false
+     * @param n
+     * @return
+     */
+    public boolean isPowerOfTwo(int n) {
+//       //第一种方法，使用Math函数
+//        if(n <= 0){
+//            return false;
+//        }
+//        //1是任何数得幂
+//        if( 0 < n  &&  n <= 3){
+//            return true;
+//        }
+//        /*
+//        * 思想：
+//        *   对n取对数得num，然后对结果在取num幂次，如果等于n，则是2的幂
+//        *   如果不等于2，则不为2得幂*/
+//            int num = (int) (Math.log(n) / Math.log(2));
+//            if(Math.pow(2,num) == n){
+//                return true;
+//            }else{
+//                return false;
+//            }
+
+
+//        //第二种方法
+//        //时间复杂度太大
+//        //首先排除n<=0的情况
+//        if(n <= 0){
+//            return false;
+//        }
+//        //1是任何数的幂
+//        if(n == 1){
+//            return true;
+//        }
+//
+//        //接下来开始判断
+//        int small = 2;
+//        int big = 4;
+//        while(small != n && big != n){
+//            if(small < n && n < big){
+//                return  false;
+//            }
+//            small *=2;
+//            big *= 2;
+//        }
+//        return true;
+
+        //第三种方法
+        if (n <= 0)
+            return false;
+        if (n == 1) {
+            return true;
+        }
+        String[] num = Integer.toBinaryString(n).split("");
+
+        for (int i = num.length - 1; i > 0; i--) {
+            if (!num[i].equals("0")) {
+                return false;
+            }
+
+        }
+        if (num[0].equals("1")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * 三数之和
@@ -73,6 +160,58 @@ public class ArrayQ {
 
 
     /**
+     * 无重复字符的最长子串
+     * 给定一个字符串，找出不含有重复字符的最长子串的长度。
+     *
+     * 示例 1:
+     *
+     * 输入: "abcabcbb"
+     * 输出: 3
+     * 解释: 无重复字符的最长子串是 "abc"，其长度为 3。
+     * 示例 2:
+     *
+     * 输入: "bbbbb"
+     * 输出: 1
+     * 解释: 无重复字符的最长子串是 "b"，其长度为 1。
+     * 示例 3:
+     *
+     * 输入: "pwwkew"
+     * 输出: 3
+     * 解释: 无重复字符的最长子串是 "wke"，其长度为 3。
+     *      请注意，答案必须是一个子串，"pwke" 是一个子序列 而不是子串。
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() == 0)
+            return 0;
+        //创建动态数组
+        int maxLength = 1;
+        List<Character> list = new ArrayList<Character>();
+        list.add(s.charAt(0));
+        for (int i = 1; i < s.length(); i++) {
+            //如果不包含该字符
+            if(!list.contains(s.charAt(i))){
+                //添加到list中
+                list.add(s.charAt(i));
+                //计算list的长度;
+                maxLength = Math.max(maxLength,list.size());
+
+
+                //如果包含了某字符
+            }else{
+                //去掉该字符,将新的字符添加进去
+                int index = list.indexOf(s.charAt(i));
+                list = list.subList(index+1, list.size());
+                list.add(s.charAt(i));
+                maxLength = Math.max(maxLength, list.size());
+            }
+        }
+        return maxLength;
+    }
+
+
+    /**
      * 最长回文子串
      * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
      *
@@ -89,7 +228,29 @@ public class ArrayQ {
      * @return
      */
 //    public String longestPalindrome(String s) {
+//        //将字符串分割成字符串数组
+//        String[] ss = s.split("");
+//        //实例化StringBuffer对象
+//        StringBuffer tem = new StringBuffer();
+//        int j = 1;
+//        int count = 0;
+//        //进入循环
+//        for (int i = 0; i < ss.length; i++) {
+//            String current = ss[i];
+//            while (ss[i + j] != ss[i]) {
+//                tem.append()
+//                j++;
+//                count++;
+//            }
 //
+//
+//        }
+//
+//
+//
+//        //终止条件
+//
+//       return tem.toString();
 //    }
 
     public static class binary_search {
