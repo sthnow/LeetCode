@@ -1,6 +1,58 @@
 import java.util.Arrays;
 
 public class StringQ {
+
+
+    /**
+     * 反转字符串中的单词 III
+     * 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: "Let's take LeetCode contest"
+     * 输出: "s'teL ekat edoCteeL tsetnoc"
+     * 注意：在字符串中，每个单词由单个空格分隔，并且字符串中不会有任何额外的空格。
+     *
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+
+        //第一种方法
+        /*//以空格切割字符串
+        String[] str = s.split(" ");
+        String tem = "";
+        for(int i = 0; i < str.length; i++){
+            char[] c = new char[str[i].length()];
+            for (int j = 0; j < str[i].length(); j++) {
+                c[j] = str[i].charAt(str[i].length() - 1  -j);
+            }
+            if(i!= str.length -1){
+                tem += String.valueOf(c) + " ";
+            }else{
+                tem += String.valueOf(c);
+            }
+        }
+        return tem;*/
+
+        //第二种方法
+
+        //以空格切割字符串
+        String[] str = s.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        //翻转每一个单词
+        for (int i = 0; i <str.length ; i++) {
+           char[] tem = str[i].toCharArray();
+
+            for (int j = 0; j < str[i].length(); j++) {
+                tem[j] = str[i].charAt(str[i].length() - 1- j);
+            }
+            result.append(new String(tem) + " ");
+        }
+        return result.toString().trim();
+    }
+
     public void reverseString(String s) {
         //定义变量
         String rs = "";
@@ -354,17 +406,18 @@ public class StringQ {
     /**
      * 验证回文字符串
      * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
-     *
+     * <p>
      * 说明：本题中，我们将空字符串定义为有效的回文串。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: "A man, a plan, a canal: Panama"
      * 输出: true
      * 示例 2:
-     *
+     * <p>
      * 输入: "race a car"
      * 输出: false
+     *
      * @param s
      * @return
      */
@@ -373,13 +426,13 @@ public class StringQ {
         //将字符串化为小写字母
         String sLow = s.toLowerCase();
         //去掉所有的符号
-        String sRep = sLow.replaceAll("[^a-z0-9]","");
+        String sRep = sLow.replaceAll("[^a-z0-9]", "");
         //分割字符串
         String[] s1 = sRep.split("");
 
         boolean flag = true;
         for (int i = 0; i < s1.length; i++) {
-            if(!s1[i].equals(s1[s1.length -1 - i])) {
+            if (!s1[i].equals(s1[s1.length - 1 - i])) {
                 flag = false;
                 break;
             }
@@ -389,23 +442,24 @@ public class StringQ {
 
 
     /**
-     *最长公共前缀
+     * 最长公共前缀
      * 编写一个函数来查找字符串数组中的最长公共前缀。
-     *
+     * <p>
      * 如果不存在公共前缀，返回空字符串 ""。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: ["flower","flow","flight"]
      * 输出: "fl"
      * 示例 2:
-     *
+     * <p>
      * 输入: ["dog","racecar","car"]
      * 输出: ""
      * 解释: 输入不存在公共前缀。
      * 说明:
-     *
+     * <p>
      * 所有输入只包含小写字母 a-z 。
+     *
      * @param strs
      * @return
      */
@@ -464,11 +518,11 @@ public class StringQ {
 
 
     /**
-     *  计数质数
+     * 计数质数
      * 统计所有小于非负整数 n 的质数的数量。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: 10
      * 输出: 4
      * 解释: 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
@@ -499,54 +553,53 @@ public class StringQ {
 
         boolean flag[] = new boolean[n];//初始全都false
 
-        for (int i = 2; i < n ; i++)
-            if (flag[i] == false){
-                count ++;
-                for (int j = 1; j * i < n ; j++)
+        for (int i = 2; i < n; i++)
+            if (flag[i] == false) {
+                count++;
+                for (int j = 1; j * i < n; j++)
                     flag[j * i] = true;
             }
         return count;
     }
 
     /**
-     *  3的幂
+     * 3的幂
      * 给定一个整数，写一个函数来判断它是否是 3 的幂次方。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: 27
      * 输出: true
      * 示例 2:
-     *
+     * <p>
      * 输入: 0
      * 输出: false
      * 示例 3:
-     *
+     * <p>
      * 输入: 9
      * 输出: true
      * 示例 4:
-     *
+     * <p>
      * 输入: 45
      * 输出: false
      * 进阶：
      * 你能不使用循环或者递归来完成本题吗？
      */
     public boolean isPowerOfThree(int n) {
-        if(n <= 0){
+        if (n <= 0) {
             return false;
         }
 
-        if(n == 1 ){
+        if (n == 1) {
             return true;
         }
-        if (n % 3 != 0 ){
+        if (n % 3 != 0) {
             return false;
-        }else if(n == 3 ){
+        } else if (n == 3) {
             return true;
-        }
-        else{
-            n = n/3 ;
-            return  isPowerOfThree(n);
+        } else {
+            n = n / 3;
+            return isPowerOfThree(n);
         }
     }
 }
