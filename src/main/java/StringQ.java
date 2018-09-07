@@ -16,7 +16,7 @@ public class StringQ {
      * @param s
      * @return
      */
-    public String reverseWords(String s) {
+    public String reverseWords3(String s) {
 
         //第一种方法
         /*//以空格切割字符串
@@ -601,6 +601,42 @@ public class StringQ {
             n = n / 3;
             return isPowerOfThree(n);
         }
+    }
+
+    /**
+     * 151. 翻转字符串里的单词
+     * 题目描述提示帮助提交记录社区讨论阅读解答
+     * 随机一题
+     * 给定一个字符串，逐个翻转字符串中的每个单词。
+     *
+     * 示例:
+     *
+     * 输入: "the sky is blue",
+     * 输出: "blue is sky the".
+     * 说明:
+     *
+     * 无空格字符构成一个单词。
+     * 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
+     * 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
+     * 进阶: 请选用C语言的用户尝试使用 O(1) 空间复杂度的原地解法。
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+
+        String[] str = s.trim().split(" ");
+
+        StringBuffer result = new StringBuffer();
+
+
+        for (int i = str.length - 1; i >= 0; i--) {
+            if(str[i].equals("")){
+                continue;
+            }else{
+                result.append(str[i] + " ");
+            }
+        }
+        return result.toString().trim();
     }
 }
 
