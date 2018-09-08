@@ -42,11 +42,11 @@ public class StringQ {
         StringBuilder result = new StringBuilder();
 
         //翻转每一个单词
-        for (int i = 0; i <str.length ; i++) {
-           char[] tem = str[i].toCharArray();
+        for (int i = 0; i < str.length; i++) {
+            char[] tem = str[i].toCharArray();
 
             for (int j = 0; j < str[i].length(); j++) {
-                tem[j] = str[i].charAt(str[i].length() - 1- j);
+                tem[j] = str[i].charAt(str[i].length() - 1 - j);
             }
             result.append(new String(tem) + " ");
         }
@@ -608,17 +608,18 @@ public class StringQ {
      * 题目描述提示帮助提交记录社区讨论阅读解答
      * 随机一题
      * 给定一个字符串，逐个翻转字符串中的每个单词。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: "the sky is blue",
      * 输出: "blue is sky the".
      * 说明:
-     *
+     * <p>
      * 无空格字符构成一个单词。
      * 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
      * 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
      * 进阶: 请选用C语言的用户尝试使用 O(1) 空间复杂度的原地解法。
+     *
      * @param s
      * @return
      */
@@ -630,13 +631,88 @@ public class StringQ {
 
 
         for (int i = str.length - 1; i >= 0; i--) {
-            if(str[i].equals("")){
+            if (str[i].equals("")) {
                 continue;
-            }else{
+            } else {
                 result.append(str[i] + " ");
             }
         }
         return result.toString().trim();
+    }
+
+
+    /**
+     * 最长回文子串
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入: "babad"
+     * 输出: "bab"
+     * 注意: "aba"也是一个有效答案。
+     * 示例 2：
+     * <p>
+     * 输入: "cbbd"
+     * 输出: "bb"
+     *
+     * @param s
+     * @return
+     */
+    public int longestPalindrome(String s) {
+        //使用马拉松算法
+
+
+        //首先去除字符串奇偶的影响
+        int conut = 0;
+        char[] tem = new char[s.length() * 2 + 1];
+
+        for (int i = 0; i < s.length(); i++) {
+            tem[conut++] = '#';
+            tem[conut++] = s.charAt(i);
+        }
+        tem[conut] = '#';
+
+        //分割完字符串后开始确定最长回文半径
+        //mx为已知回文半径能达到的最远端
+        int mx = 0;
+
+        //id为当前回文串的对称轴，也就是中心
+        int id = 0;
+
+        //cur是整个字符串的长度
+        int cur = conut;
+
+        int result = 0;
+
+        int[] p = new int[cur];
+
+        //遍历整个数组的元素
+        for (int i = 0; i < cur; i++) {
+
+            //当前元素是否在已知回文半径内
+            //如果在的话，当前元素的回文半径为
+//                如果已知回文半径和i的距离小于其对称点的回文半径，表示当前元素的回文半径和其对称点的回文半径相同
+//                反之则表示当前元素回文半径较大
+
+//            如果当前元素在已知回文半径之外或在回文半径边上，则给当前元素回文半径赋1
+            p[i] = (mx > i ? Math.min(p[2 * id - i], mx - i) : 1);
+
+//            首先防止越界
+//            其次，当左边界元素和右边界元素相等时，扩展半径
+            while (i + p[i] < cur && (i - p[i] >= 0) && (tem[i + p[i]] == tem[i - p[i]]))
+//            扩展半径
+                ++p[i];
+
+//            如果当前半径大于已知半径，更新回文半径
+            if (i + p[i] > mx) {
+                mx = i + p[i];
+                id = i;
+            }
+
+//          取最大的为新的回文半径
+            result = Math.max(result, p[i] - 1);
+        }
+        return result;
     }
 }
 
