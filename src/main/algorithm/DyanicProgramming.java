@@ -61,13 +61,42 @@ public class DyanicProgramming {
     public boolean rec_subset(int[] arr, int i ,int s){
         if(i == 0)
             return   arr[0] == s ?  true :  false;
-        if(s == 0)
+        else if(s == 0)
             return true;
 
-        if(arr[i] > s)
-            return rec_subset(arr,i-1,s);
+        else if (arr[i] > s)
+            return rec_subset(arr, i - 1, s);
 
+        else
          return  rec_subset(arr,i-1,s-arr[i]) || rec_subset(arr,i-1,s);
+    }
+
+    public boolean dp_subset(int[] arr,int S){
+        boolean subset[][] = new boolean[arr.length][S+1];
+
+
+            //subset[i].length 表示i行的列数
+        for (int i = 0; i < subset[0].length ; i++) {
+            subset[0][i] = false;
+        }
+
+        for (int i = 0; i < subset.length; i++) {
+            subset[i][0] = true;
+
+        }
+
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 1; j < S+1 ; j++) {
+                if(arr[i] > j)
+                    subset[i][j] = subset[i-1][j];
+                else {
+                    subset[i][j] = subset[i - 1][j - arr[i]] || subset[i -rec_subset() 1][j];
+                }
+            }
+        }
+        int i = subset.length - 1;
+        int j = subset[subset.length - 1].length -1;
+       return  subset[subset.length - 1][subset[subset.length - 1].length -1];
     }
 }
 
