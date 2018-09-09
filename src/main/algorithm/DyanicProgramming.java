@@ -40,7 +40,7 @@ public class DyanicProgramming {
      * @return
      */
     //使用非递归的方式完成
-    public int rec_opt_dp(int[] arr, int i) {
+    public int opt_dp(int[] arr, int i) {
 
 
         int[] tem = new int[arr.length];
@@ -54,20 +54,20 @@ public class DyanicProgramming {
             tem[j] = Math.max(a, b);
         }
 
-        //边界条件
 
-//        if(i == 0)
-//            return arr[0];
-//        if(i == 1)
-//            return Math.max(arr[0], arr[1]);
-
-
-//        Map<Integer, Integer> tem = new HashMap<Integer, Integer>();
-//        if(tem.containsKey(i)) {
-//            return  tem.get(i);
-//        }else{
-//            tem.put(i,arr[i]);
         return tem[tem.length -1];
+    }
+
+    public boolean rec_subset(int[] arr, int i ,int s){
+        if(i == 0)
+            return   arr[0] == s ?  true :  false;
+        if(s == 0)
+            return true;
+
+        if(arr[i] > s)
+            return rec_subset(arr,i-1,s);
+
+         return  rec_subset(arr,i-1,s-arr[i]) || rec_subset(arr,i-1,s);
     }
 }
 
