@@ -19,7 +19,10 @@ public class StringQTest {
         //ss.isPalindrome("0p");
         //System.out.println(ss.longestCommonPrefix(new String[]{"bgbc","","aba"}));
         //System.out.println(ss.countPrimes(2));
-        System.out.println(ss.isPowerOfThree(1));
+        //System.out.println(ss.isPowerOfThree(1));
+        //ss.reverseWords(   "   a   b  c d   e  " );
+        //ss.longestPalindrome("aba");
+        ss.longestPalindrome1("abb");
     }
 
     @Test
@@ -71,5 +74,17 @@ public class StringQTest {
 
     @Test
     public void isPowerOfThree() {
+    }
+
+    @Test
+    public void reverseWords() {
+    }
+
+    @Test
+    public void longestPalindrome() {
+    }
+
+    @Test
+    public void longestPalindrome1() {
     }
 }

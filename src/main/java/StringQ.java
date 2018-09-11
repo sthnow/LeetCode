@@ -642,7 +642,7 @@ public class StringQ {
 
 
     /**
-     * 最长回文子串
+     * 最长回文子串长度
      * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
      * <p>
      * 示例 1：
@@ -713,6 +713,105 @@ public class StringQ {
             result = Math.max(result, p[i] - 1);
         }
         return result;
+    }
+
+
+    /**
+     * 最长回文子串
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为1000。
+     * <p>
+     * 示例 1：
+     * <p>
+     * 输入: "babad"
+     * 输出: "bab"
+     * 注意: "aba"也是一个有效答案。
+     * 示例 2：
+     * <p>
+     * 输入: "cbbd"
+     * 输出: "bb"
+     *
+     * @param s
+     * @return
+     */
+    public String longestPalindrome1(String s) {
+      /* if(s.equals(""))
+           return "";
+       if(s.length() == 1)
+           return s;
+        //使用循环的方法做
+
+        int length = s.length();
+        //center-对称中心
+        int count = 0, maxCount = 0, center = 0;
+        if (length % 2 != 0) {
+            //奇数的情况下
+            for (int i = 0; i < length; i++) {
+                for (int j = 0; (i - j) >= 0 && (i + j) < length; j++) {
+                    if (s.charAt(i + j) != s.charAt(i - j))
+                        break;
+                    count = j * 2 + 1;
+                }
+                if (maxCount < count) {
+                    maxCount = count;
+                    center = i;
+                }
+            }
+        } else {
+            //偶数的情况
+            for (int i = 0; i < length; i++) {
+                for (int j = 0; (i - j >= 0) && (i + j + 1 < length); j++) {
+                    if (s.charAt(i - j) != s.charAt(i + j + 1))
+                        break;
+                    count = j * 2 + 2;
+                }
+                if (maxCount < count) {
+                    maxCount = count;
+                    center = i;
+                }
+            }
+        }
+
+        StringBuffer ss = new StringBuffer();
+
+        //判断maxcount的奇偶
+        if (maxCount % 2 == 0) {
+            //如果长度是偶
+            maxCount = maxCount / 2;
+        } else {
+            maxCount = maxCount / 2 + 1;
+        }
+        //找出回文子串
+        for (int i = center - maxCount + 1; i <= center; i++) {
+            ss.append(s.charAt(i));
+        }
+        ss.append(s.charAt(center + 1));
+        return ss.toString();
+*/
+
+        if(s.equals(""))
+            return "";
+        if(s.length() == 1)
+            return s;
+        int start = 0, end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    private int expandAroundCenter(String s, int left, int right) {
+        int L = left, R = right;
+        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+            L--;
+            R++;
+        }
+        return R - L - 1;
     }
 }
 
