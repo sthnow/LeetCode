@@ -616,6 +616,38 @@ public class ArrayQ {
             strings[1] = String.valueOf(j);
             return strings;
         }
+
+
+        /**
+         * 两整数之和
+         * 不使用运算符 + 和 - ​​​​​​​，计算两整数 ​​​​​​​a 、b ​​​​​​​之和。
+         *
+         * 示例 1:
+         *
+         * 输入: a = 1, b = 2
+         * 输出: 3
+         * 示例 2:
+         *
+         * 输入: a = -2, b = 3
+         * 输出: 1
+         * @param a
+         * @param b
+         * @return
+         */
+        public int getSum(int a, int b) {
+            //按位取异或
+            int result = a^b;
+            //判断是否需要进位
+            int forward = (a&b) <<1;
+            if(forward!=0){
+                //如有进位，则将二进制数左移一位，进行递归
+                return getSum(result,forward);
+            }
+            return result;
+        }
     }
+
+
+
 
 }

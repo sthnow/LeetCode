@@ -25,4 +25,8 @@ public class ArrayQTest {
     @Test
     public void isPowerOfTwo() {
     }
+
+
+
+
 }
