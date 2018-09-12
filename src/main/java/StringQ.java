@@ -802,7 +802,9 @@ public class StringQ {
                 end = i + len / 2;
             }
         }
-        return s.substring(start, end + 1);
+
+        //substring 左包括，右不包括
+        return s.substring(start, 5);
     }
 
     private int expandAroundCenter(String s, int left, int right) {
@@ -813,6 +815,9 @@ public class StringQ {
         }
         return R - L - 1;
     }
+
+
+
 }
 
 

@@ -33,10 +33,12 @@ public class mergeSort {
             tem[i] = a[low];
             i++; low++;
         }
+//        如果右边没有比较完
         while (high <= r){
             tem[i] = a[high];
             i++; high++;
         }
+//        将排好序的子数组放到原数组对应的子数组位置中
         for (int j = 0; j < tem.length; j++) {
             a[j + l] = tem[j];
         }

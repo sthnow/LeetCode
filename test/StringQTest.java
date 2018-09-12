@@ -22,7 +22,7 @@ public class StringQTest {
         //System.out.println(ss.isPowerOfThree(1));
         //ss.reverseWords(   "   a   b  c d   e  " );
         //ss.longestPalindrome("aba");
-        ss.longestPalindrome1("abb");
+        System.out.println(ss.longestPalindrome1("ababa"));
     }
 
     @Test

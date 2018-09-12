@@ -71,6 +71,13 @@ public class DyanicProgramming {
          return  rec_subset(arr,i-1,s-arr[i]) || rec_subset(arr,i-1,s);
     }
 
+
+    /**
+     * 给出一个数组和一个目标值，判断数组里的数之和能够等于目标值
+     * @param arr   给出的一个数组
+     * @param S     给出的目标值
+     * @return
+     */
     public boolean dp_subset(int[] arr,int S){
         boolean subset[][] = new boolean[arr.length][S+1];
 
@@ -79,7 +86,7 @@ public class DyanicProgramming {
         for (int i = 0; i < subset[0].length ; i++) {
             subset[0][i] = false;
         }
-
+        //subset.length表示行数
         for (int i = 0; i < subset.length; i++) {
             subset[i][0] = true;
 
@@ -90,7 +97,8 @@ public class DyanicProgramming {
                 if(arr[i] > j)
                     subset[i][j] = subset[i-1][j];
                 else {
-                    subset[i][j] = subset[i - 1][j - arr[i]] || subset[i -rec_subset() 1][j];
+                    //选择第i个数
+                    subset[i][j] = subset[i - 1][j - arr[i]] || subset[i-1][j];
                 }
             }
         }
