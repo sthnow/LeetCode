@@ -10,8 +10,11 @@ public void setUp(){
 //    System.out.println(dp.rec_opt(new int[]{1,2,4,1,7,8,3}, 6));
 //    System.out.println(dp.opt_dp(new int[]{4,1,1,9,3}, 4));
 //    System.out.println(dp.rec_subset(new int[]{3,0,4,12,5,2}, 5,0));
-    System.out.println(dp.dp_subset(new int[]{3,0,4,12,5,2}, 8));
+//    System.out.println(dp.dp_subset(new int[]{3,0,4,12,5,2}, 8));
+    System.out.println(dp.climbStairs(10));
 }
+
+
 
 
     @Test
@@ -28,5 +31,9 @@ public void setUp(){
 
     @Test
     public void dp_subset() {
+    }
+
+    @Test
+    public void climbStairs() {
     }
 }
