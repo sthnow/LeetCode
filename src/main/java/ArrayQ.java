@@ -674,20 +674,31 @@ public class ArrayQ {
      */
     public int maxProfit(int[] prices) {
         //处理错误和特殊输入
-        if(prices == null || prices.length == 1)
+        if(prices == null || prices.length == 0)
             return 0;
 
 
         //当只允许交易一次时，全局最优解等于局部最优解
-        int local = 0;
-        int global = 0;
+//        int local = 0;
+//        int global = 0;
+//
+//        for (int i = 0; i <prices.length-1 ; i++) {
+//            //状态转移方程
+//            local= Math.max(local+prices[i+1]-prices[i],0);
+//            global = Math.max(local,global);
 
-        for (int i = 0; i <prices.length-1 ; i++) {
-            //状态转移方程
-            local= Math.max(local+prices[i+1]-prices[i],0);
-            global = Math.max(local,global);
+        //第二种解法
+        //不断寻找最大的利润
+        //遍历数组，动态的找到最小值，遍历每个数与最小值的差值
+        int profit = 0;
+        int min = prices[0];
+        for (int i = 0; i < prices.length; i++) {
+            profit = Math.max(prices[i]- min,profit);
+            min = Math.min(prices[i],min);
         }
-        return global;
+        return profit;
+        //return global;
+        }
     }
 
-}
+
