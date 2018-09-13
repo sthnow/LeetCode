@@ -220,6 +220,96 @@ public class DyanicProgramming {
         return dp[dp.length-1];
     }
 
+    /**
+     * 买卖股票的最佳时机
+     * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+     *
+     * 如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
+     *
+     * 注意你不能在买入股票前卖出股票。
+     *
+     * 示例 1:
+     *
+     * 输入: [7,1,5,3,6,4]
+     * 输出: 5
+     * 解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
+     *      注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+     * 示例 2:
+     *
+     * 输入: [7,6,4,3,1]
+     * 输出: 0
+     * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        //处理错误和特殊输入
+        if(prices == null || prices.length == 0)
+            return 0;
 
+
+        //当只允许交易一次时，全局最优解等于局部最优解
+//        int local = 0;
+//        int global = 0;
+//
+//        for (int i = 0; i <prices.length-1 ; i++) {
+//            //状态转移方程
+//            local= Math.max(local+prices[i+1]-prices[i],0);
+//            global = Math.max(local,global);
+
+        //第二种解法
+        //不断寻找最大的利润
+        //遍历数组，动态的找到最小值，遍历每个数与最小值的差值
+        int profit = 0;
+        int min = prices[0];
+        for (int i = 0; i < prices.length; i++) {
+            profit = Math.max(prices[i]- min,profit);
+            min = Math.min(prices[i],min);
+        }
+        return profit;
+        //return global;
+    }
+
+
+    /**
+     * 最大子序和
+     * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+     *
+     * 示例:
+     *
+     * 输入: [-2,1,-3,4,-1,2,1,-5,4],
+     * 输出: 6
+     * 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+     * 进阶:
+     *
+     * 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+       //处理错误和特殊输入
+        if(nums.length == 0)
+            return 0;
+        if(nums.length == 1)
+            return nums[0];
+
+
+        //第一种方法，暴力求解法
+        //时间复杂度为O(n^3)
+        //从第一个数字开始，以每个数字依次为起始，计算新的数组中最大值是多少
+        //每次遍历都能计算出新的数组中子数组的连续数字之和的最大值
+        int maxValue = nums[0];
+        for (int start = 0; start < nums.length ; start++) {
+            for (int end = start; end < nums.length; end++) {
+                int value = nums[end];
+                for (int index = start; index < end; index++) {
+                    value  += nums[index];
+                }
+                if(value > maxValue)
+                    maxValue = value;
+            }
+        }
+        return maxValue;
+    }
 }
 

@@ -12,7 +12,8 @@ public void setUp(){
 //    System.out.println(dp.rec_subset(new int[]{3,0,4,12,5,2}, 5,0));
 //    System.out.println(dp.dp_subset(new int[]{3,0,4,12,5,2}, 8));
 //    System.out.println(dp.climbStairs(10));
-    System.out.println(dp.rob(new int[]{2,1,5,2}));
+ //   System.out.println(dp.rob(new int[]{2,1,5,2}));
+    System.out.println(dp.maxSubArray(new int[]{-2,-1}));
 }
 
 
@@ -40,5 +41,9 @@ public void setUp(){
 
     @Test
     public void rob() {
+    }
+
+    @Test
+    public void maxSubArray() {
     }
 }
