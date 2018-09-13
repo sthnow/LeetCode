@@ -11,7 +11,8 @@ public void setUp(){
 //    System.out.println(dp.opt_dp(new int[]{4,1,1,9,3}, 4));
 //    System.out.println(dp.rec_subset(new int[]{3,0,4,12,5,2}, 5,0));
 //    System.out.println(dp.dp_subset(new int[]{3,0,4,12,5,2}, 8));
-    System.out.println(dp.climbStairs(10));
+//    System.out.println(dp.climbStairs(10));
+    System.out.println(dp.rob(new int[]{2,1,5,2}));
 }
 
 
@@ -35,5 +36,9 @@ public void setUp(){
 
     @Test
     public void climbStairs() {
+    }
+
+    @Test
+    public void rob() {
     }
 }
