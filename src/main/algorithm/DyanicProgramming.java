@@ -293,23 +293,58 @@ public class DyanicProgramming {
         if(nums.length == 1)
             return nums[0];
 
+//
+//        //第一种方法，暴力求解法
+//        //时间复杂度为O(n^3)
+//        //从第一个数字开始，以每个数字依次为起始，计算新的数组中最大值是多少
+//        //每次遍历都能计算出新的数组中子数组的连续数字之和的最大值
+//        int maxValue = nums[0];
+//        for (int start = 0; start < nums.length ; start++) {
+//            for (int end = start; end < nums.length; end++) {
+//                int value = nums[end];
+//                for (int index = start; index < end; index++) {
+//                    value  += nums[index];
+//                }
+//                if(value > maxValue)
+//                    maxValue = value;
+//            }
+//        }
+//        return maxValue;
 
-        //第一种方法，暴力求解法
-        //时间复杂度为O(n^3)
-        //从第一个数字开始，以每个数字依次为起始，计算新的数组中最大值是多少
-        //每次遍历都能计算出新的数组中子数组的连续数字之和的最大值
-        int maxValue = nums[0];
-        for (int start = 0; start < nums.length ; start++) {
-            for (int end = start; end < nums.length; end++) {
-                int value = nums[end];
-                for (int index = start; index < end; index++) {
-                    value  += nums[index];
-                }
-                if(value > maxValue)
-                    maxValue = value;
-            }
+          //不是很对
+//        //第二种解法
+//
+//        int maxSum = nums[0];
+//        int thisSum = nums[0];
+//
+//        for (int i = 1; i < nums.length; i++) {
+//
+//
+//            thisSum += nums[i];
+//
+//            if(thisSum < 0){
+//                thisSum = 0;
+//            }else if(thisSum > maxSum){
+//                maxSum = thisSum;
+//            }
+//        }
+//        return maxSum;
+
+        //第三种解法
+        /*
+        * 求和，然后判断和是否小于0，如果小于0，后面的一个数加上这个数则必定小于后面的数
+        * 所以又重新求和，并和之前的最大子序和相比较*/
+        int sum = nums[0],maxSum = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            if(sum < 0 )
+                sum = 0;
+            sum += nums[i];
+            maxSum = Math.max(maxSum,sum);
         }
-        return maxValue;
+        return maxSum;
     }
+
+    //类结束括号
 }
 
