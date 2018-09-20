@@ -12,7 +12,7 @@ public class ArrayQTest {
         //aq.longestPalindrome("babad");
         //System.out.println(aq.isPowerOfTwo(8));
      //   System.out.println(aq.getSum(-5,3));
-        System.out.println(aq.maxProfit(new int[]{7,1,5,3,5,4}));
+     //   System.out.println(aq.maxProfit(new int[]{7,1,5,3,5,4}));
     }
 
     @Test
@@ -36,5 +36,9 @@ public class ArrayQTest {
 
     @Test
     public void maxProfit() {
+    }
+
+    @Test
+    public void maxSubArray() {
     }
 }
