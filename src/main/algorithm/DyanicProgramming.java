@@ -369,26 +369,49 @@ public class DyanicProgramming {
      * @return
      */
     public int coinChange(int[] coins, int amount) {
+        //处理错误情况
         if(amount==0){
             return 0;
         }
 
         int len=coins.length;
+
+        //dp数组存放兑换 i 元时所需要的最少数量
+        //0-amount 为 amount+1 个
         int []dp=new int[amount+1];
-        for(int p=1;p<amount+1;++p){
+
+        //给dp数组赋值，这里赋值赋超出最大兑换数量的值，不会对结果造成影响
+        for(int p=1;p<amount+1;p++){
             dp[p]=p+1;
         }
+
+        //兑换 0 元 所需的最少数量为 0
         dp[0]=0;
+
+        //从 1 元到 amount 元遍历
+        //依次表示兑换 i 元
         for(int i=1;i<=amount;++i){
+
+            //h 不选择dp[i]时兑换钱的数量
+            //初始一个不可能的数，即超出最大兑换数量的数
             int h=amount+1;
+
+            //依次遍历 coins 中存放的钱数
             for(int j=0;j<len;++j){
+
+                //如果 coins[j] 小于 i 元钱，表示能够兑换
+                //同时需要兑换 i-coins[j]钱的数量不等于 -1，表示可以兑换
+                // 都满足后，继续循环
                 if(coins[j]<=i && dp[i-coins[j]]!=-1){
+
+                    //不选择dp[i]，选择了dp[i-coins[j],兑换钱的数量要加 1
+                    // 如果兑换 i-conins[j]钱的数量小于等于 h
                     if(dp[i-coins[j]]<=h){
                         h=dp[i-coins[j]];
                     }
                 }
             }
-            if(h<i+1){
+            if(h<=i){
                 dp[i]=h+1;
             }else{dp[i]=-1;}
         }

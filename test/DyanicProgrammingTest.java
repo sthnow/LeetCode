@@ -14,7 +14,7 @@ public void setUp(){
 //    System.out.println(dp.climbStairs(10));
  //   System.out.println(dp.rob(new int[]{2,1,5,2}));
  //   System.out.println(dp.maxSubArray(new int[]{-2,-1}));
-    System.out.println(dp.coinChange(new int[]{186,419,89,408},6249));
+    System.out.println(dp.coinChange(new int[]{2,5,186,419,89,408},6249));
 }
 
 
