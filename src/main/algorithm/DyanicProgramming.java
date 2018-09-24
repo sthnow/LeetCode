@@ -369,7 +369,40 @@ public class DyanicProgramming {
      * @return
      */
     public int coinChange(int[] coins, int amount) {
-        //处理错误情况
+
+
+        /*
+        * 　很显然，这是一道动态规划问题。和第279完全平方数的解法如出一辙。
+
+　　我们求11的硬币数，相当于求n=10,n=9,n=6的银币数中的最小值+1.
+
+　　道理明白以后，这里我们倒着填并不是明智的。因为n=10,n=9,n=6的数据都是空的，同样前面的数也都是空的。
+
+　　所以我们采取自下而上的填充测略，可以减省空间的消耗。*/
+        //更容易理解的一种方法
+
+        if(amount==0||coins.length<=0)
+            return 0;
+        int[] dp = new int[amount+1];
+        Arrays.fill(dp,amount+1);
+        Arrays.sort(coins);
+        for(int i=1;i<=amount;i++)
+        {
+            for(int j=0;j<coins.length;j++)
+            {
+                if(i-coins[j]==0)
+                    dp[i]=1;
+                else if(i-coins[j]>0){
+
+                    //不能兑换零钱的数值 i ， dp[i] 中存放的数字都是最大兑换数目 +1 ，防止了错误产生
+                    dp[i]=Math.min(dp[i],dp[i-coins[j]]+1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+
+
+  /*      //处理错误情况
         if(amount==0){
             return 0;
         }
@@ -415,7 +448,7 @@ public class DyanicProgramming {
                 dp[i]=h+1;
             }else{dp[i]=-1;}
         }
-        return dp[amount];
+        return dp[amount];*/
 
     }
 
