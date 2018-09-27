@@ -14,7 +14,8 @@ public void setUp(){
 //    System.out.println(dp.climbStairs(10));
  //   System.out.println(dp.rob(new int[]{2,1,5,2}));
  //   System.out.println(dp.maxSubArray(new int[]{-2,-1}));
-    System.out.println(dp.coinChange(new int[]{2,3,5},10));
+  //  System.out.println(dp.coinChange(new int[]{2,3,5},10));
+    System.out.println(dp.canJump(new int[]{2,3,1,1,4}));
 }
 
 
@@ -50,5 +51,9 @@ public void setUp(){
 
     @Test
     public void coinChange() {
+    }
+
+    @Test
+    public void canJump() {
     }
 }
