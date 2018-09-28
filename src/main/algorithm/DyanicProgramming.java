@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class DyanicProgramming {
@@ -37,7 +36,7 @@ public class DyanicProgramming {
 
     /**
      * 给出一个数组，选取其中的数字使得和为最大
-     *  条件：选取一个数字后不能再选择相邻的两个数字
+     * 条件：选取一个数字后不能再选择相邻的两个数字
      * 使用非递归的方式完成
      *
      * @param arr
@@ -60,42 +59,42 @@ public class DyanicProgramming {
         }
 
 
-        return tem[tem.length -1];
+        return tem[tem.length - 1];
     }
-
 
 
     /**
      * 给出一个数组和一个目标值，判断数组里的数之和能够等于目标值
-
+     *
      * @return
      */
-    public boolean rec_subset(int[] arr, int i ,int s){
-        if(i == 0)
-            return   arr[0] == s ?  true :  false;
-        else if(s == 0)
+    public boolean rec_subset(int[] arr, int i, int s) {
+        if (i == 0)
+            return arr[0] == s ? true : false;
+        else if (s == 0)
             return true;
 
         else if (arr[i] > s)
             return rec_subset(arr, i - 1, s);
 
         else
-         return  rec_subset(arr,i-1,s-arr[i]) || rec_subset(arr,i-1,s);
+            return rec_subset(arr, i - 1, s - arr[i]) || rec_subset(arr, i - 1, s);
     }
 
 
     /**
      * 给出一个数组和一个目标值，判断数组里的数之和能够等于目标值
-     * @param arr   给出的一个数组
-     * @param S     给出的目标值
+     *
+     * @param arr 给出的一个数组
+     * @param S   给出的目标值
      * @return
      */
-    public boolean dp_subset(int[] arr,int S){
-        boolean subset[][] = new boolean[arr.length][S+1];
+    public boolean dp_subset(int[] arr, int S) {
+        boolean subset[][] = new boolean[arr.length][S + 1];
 
 
-            //subset[i].length 表示i行的列数
-        for (int i = 0; i < subset[0].length ; i++) {
+        //subset[i].length 表示i行的列数
+        for (int i = 0; i < subset[0].length; i++) {
             subset[0][i] = false;
         }
         //subset.length表示行数
@@ -105,55 +104,56 @@ public class DyanicProgramming {
         }
 
         for (int i = 1; i < arr.length; i++) {
-            for (int j = 1; j < S+1 ; j++) {
-                if(arr[i] > j)
-                    subset[i][j] = subset[i-1][j];
+            for (int j = 1; j < S + 1; j++) {
+                if (arr[i] > j)
+                    subset[i][j] = subset[i - 1][j];
                 else {
                     //选择第i个数
-                    subset[i][j] = subset[i - 1][j - arr[i]] || subset[i-1][j];
+                    subset[i][j] = subset[i - 1][j - arr[i]] || subset[i - 1][j];
                 }
             }
         }
         int i = subset.length - 1;
-        int j = subset[subset.length - 1].length -1;
-       return  subset[subset.length - 1][subset[subset.length - 1].length -1];
+        int j = subset[subset.length - 1].length - 1;
+        return subset[subset.length - 1][subset[subset.length - 1].length - 1];
     }
 
     /**
      * 爬楼梯
      * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
-     *
+     * <p>
      * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
-     *
+     * <p>
      * 注意：给定 n 是一个正整数。
-     *
+     * <p>
      * 示例 1：
-     *
+     * <p>
      * 输入： 2
      * 输出： 2
      * 解释： 有两种方法可以爬到楼顶。
      * 1.  1 阶 + 1 阶
      * 2.  2 阶
      * 示例 2：
-     *
+     * <p>
      * 输入： 3
      * 输出： 3
      * 解释： 有三种方法可以爬到楼顶。
      * 1.  1 阶 + 1 阶 + 1 阶
      * 2.  1 阶 + 2 阶
      * 3.  2 阶 + 1 阶
+     *
      * @param n
      * @return
      */
     public int climbStairs(int n) {
         //处理错误输入
-        if(n < 1)
+        if (n < 1)
             return 0;
 
         //边界条件
-        if(n == 1)
+        if (n == 1)
             return 1;
-        if(n == 2)
+        if (n == 2)
             return 2;
 
 
@@ -169,47 +169,48 @@ public class DyanicProgramming {
         way[0] = 1;
         way[1] = 2;
 
-        for (int i = 2; i <n ; i++) {
-            way[i] = way[i-1] + way[i-2];
+        for (int i = 2; i < n; i++) {
+            way[i] = way[i - 1] + way[i - 2];
         }
-        return way[n-1];
+        return way[n - 1];
     }
 
 
     /**
      * 打家劫舍
      * 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
-     *
+     * <p>
      * 给定一个代表每个房屋存放金额的非负整数数组，计算你在不触动警报装置的情况下，能够偷窃到的最高金额。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: [1,2,3,1]
      * 输出: 4
      * 解释: 偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
-     *      偷窃到的最高金额 = 1 + 3 = 4 。
+     * 偷窃到的最高金额 = 1 + 3 = 4 。
      * 示例 2:
-     *
+     * <p>
      * 输入: [2,7,9,3,1]
      * 输出: 12
      * 解释: 偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
-     *      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
+     * 偷窃到的最高金额 = 2 + 9 + 1 = 12 。
+     *
      * @param nums
      * @return
      */
     public int rob(int[] nums) {
         //处理错误和特殊输入
-        if(nums.length == 0)
+        if (nums.length == 0)
             return 0;
-        if(nums.length == 1)
+        if (nums.length == 1)
             return nums[0];
-        if(nums.length == 2)
-            return Math.max(nums[0],nums[1]);
+        if (nums.length == 2)
+            return Math.max(nums[0], nums[1]);
 
         //使用动态规划的方式
         int[] dp = new int[nums.length];
         dp[0] = nums[0];
-        dp[1] = Math.max(nums[0],nums[1]);
+        dp[1] = Math.max(nums[0], nums[1]);
 
 //        for (int i = 2; i < nums.length; i++) {
 //            int a = nums[i-2] + nums[i];
@@ -217,37 +218,38 @@ public class DyanicProgramming {
 //            nums[i] = Math.max(a,b);
 //        }
 
-        for (int i = 2; i < nums.length ; i++) {
-            dp[i] = Math.max(dp[i-2] + nums[i],dp[i-1]);
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
         }
-        return dp[dp.length-1];
+        return dp[dp.length - 1];
     }
 
     /**
      * 买卖股票的最佳时机
      * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
-     *
+     * <p>
      * 如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
-     *
+     * <p>
      * 注意你不能在买入股票前卖出股票。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: [7,1,5,3,6,4]
      * 输出: 5
      * 解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
-     *      注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
+     * 注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
      * 示例 2:
-     *
+     * <p>
      * 输入: [7,6,4,3,1]
      * 输出: 0
      * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+     *
      * @param prices
      * @return
      */
     public int maxProfit(int[] prices) {
         //处理错误和特殊输入
-        if(prices == null || prices.length == 0)
+        if (prices == null || prices.length == 0)
             return 0;
 
 
@@ -266,8 +268,8 @@ public class DyanicProgramming {
         int profit = 0;
         int min = prices[0];
         for (int i = 0; i < prices.length; i++) {
-            profit = Math.max(prices[i]- min,profit);
-            min = Math.min(prices[i],min);
+            profit = Math.max(prices[i] - min, profit);
+            min = Math.min(prices[i], min);
         }
         return profit;
         //return global;
@@ -277,23 +279,24 @@ public class DyanicProgramming {
     /**
      * 最大子序和
      * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: [-2,1,-3,4,-1,2,1,-5,4],
      * 输出: 6
      * 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
      * 进阶:
-     *
+     * <p>
      * 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+     *
      * @param nums
      * @return
      */
     public int maxSubArray(int[] nums) {
-       //处理错误和特殊输入
-        if(nums.length == 0)
+        //处理错误和特殊输入
+        if (nums.length == 0)
             return 0;
-        if(nums.length == 1)
+        if (nums.length == 1)
             return nums[0];
 
 //
@@ -314,7 +317,7 @@ public class DyanicProgramming {
 //        }
 //        return maxValue;
 
-          //不是很对
+        //不是很对
 //        //第二种解法
 //
 //        int maxSum = nums[0];
@@ -335,35 +338,36 @@ public class DyanicProgramming {
 
         //第三种解法
         /*
-        * 求和，然后判断和是否小于0，如果小于0，后面的一个数加上这个数则必定小于后面的数
-        * 所以又重新求和，并和之前的最大子序和相比较*/
-        int sum = nums[0],maxSum = nums[0];
+         * 求和，然后判断和是否小于0，如果小于0，后面的一个数加上这个数则必定小于后面的数
+         * 所以又重新求和，并和之前的最大子序和相比较*/
+        int sum = nums[0], maxSum = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
-            if(sum < 0 )
+            if (sum < 0)
                 sum = 0;
             sum += nums[i];
-            maxSum = Math.max(maxSum,sum);
+            maxSum = Math.max(maxSum, sum);
         }
         return maxSum;
     }
 
 
     /**
-     *  零钱兑换
+     * 零钱兑换
      * 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: coins = [1, 2, 5], amount = 11
      * 输出: 3
      * 解释: 11 = 5 + 5 + 1
      * 示例 2:
-     *
+     * <p>
      * 输入: coins = [2], amount = 3
      * 输出: -1
      * 说明:
      * 你可以认为每种硬币的数量是无限的。
+     *
      * @param coins
      * @param amount
      * @return
@@ -381,21 +385,19 @@ public class DyanicProgramming {
 　　所以我们采取自下而上的填充测略，可以减省空间的消耗。*/
         //更容易理解的一种方法
 
-        if(amount==0||coins.length<=0)
+        if (amount == 0 || coins.length <= 0)
             return 0;
-        int[] dp = new int[amount+1];
-        Arrays.fill(dp,amount+1);
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
         Arrays.sort(coins);
-        for(int i=1;i<=amount;i++)
-        {
-            for(int j=0;j<coins.length;j++)
-            {
-                if(i-coins[j]==0)
-                    dp[i]=1;
-                else if(i-coins[j]>0){
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (i - coins[j] == 0)
+                    dp[i] = 1;
+                else if (i - coins[j] > 0) {
 
                     //不能兑换零钱的数值 i ， dp[i] 中存放的数字都是最大兑换数目 +1 ，防止了错误产生
-                    dp[i]=Math.min(dp[i],dp[i-coins[j]]+1);
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
                 }
             }
         }
@@ -456,50 +458,123 @@ public class DyanicProgramming {
     /**
      * 跳跃游戏
      * 给定一个非负整数数组，你最初位于数组的第一个位置。
-     *
+     * <p>
      * 数组中的每个元素代表你在该位置可以跳跃的最大长度。
-     *
+     * <p>
      * 判断你是否能够到达最后一个位置。
-     *
+     * <p>
      * 示例 1:
-     *
+     * <p>
      * 输入: [2,3,1,1,4]
      * 输出: true
      * 解释: 从位置 0 到 1 跳 1 步, 然后跳 3 步到达最后一个位置。
      * 示例 2:
-     *
+     * <p>
      * 输入: [3,2,1,0,4]
      * 输出: false
      * 解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。
+     *
      * @param nums
      * @return
      */
     public boolean canJump(int[] nums) {
-        /*
-        思路
-        * 如果nums数组中全部数字都不为0，肯定可以走到最后
-        * 能走到位置n，需要能走到n-1的位置，
-        * 能走到n-1的位置，需要能走到n-2的位置....
-        * 能走到2的位置，需要1的位置不为0   此为边界条件
-        * */
+//        /*
+//        思路
+//        * 如果nums数组中全部数字都不为0，肯定可以走到最后
+//        * 能走到位置n，需要能走到n-1的位置，
+//        * 能走到n-1的位置，需要能走到n-2的位置....
+//        * 能走到2的位置，需要1的位置不为0   此为边界条件
+//        * */
+//
+//        //处理错误及特殊情况
+//        if(nums.length == 1 )
+//            return true;
+//
+//        //开始计算
+//        int length = nums.length;
+//        boolean[] jump = new boolean[length ];
+//        jump[0] = true;
+//
+//        for (int i = 0; i < length; i++) {
+//            if (jump[i]) {
+//                for (int j = i; j <= i + nums[i] && j < length ; j++) {
+//                    jump[j] = true;
+//                }
+//            }
+//        }
+//        return jump[length-1];
 
-        //处理错误及特殊情况
-        if(nums.length == 1 )
-            return true;
-
-        //开始计算
-        int length = nums.length;
-        boolean[] jump = new boolean[length ];
-        jump[0] = true;
-
-        for (int i = 0; i < length; i++) {
-            if (jump[i]) {
-                for (int j = i; j <= i + nums[i] && j < length ; j++) {
-                    jump[j] = true;
-                }
+        //很牛逼的写法
+        if (nums == null || nums.length < 1) {
+            return false;
+        }
+        int index = nums.length - 1;
+        for (int i = nums.length - 2; i >= 0; --i) {
+            if (i + nums[i] >= index) {
+                index = i;
             }
         }
-        return jump[length-1];
+        return index <= 0;
+    }
+
+    /**
+     * Longest Increasing Subsequence
+     * 给定一个无序的整数数组，找到其中最长上升子序列的长度。
+     * <p>
+     * 示例:
+     * <p>
+     * 输入: [10,9,2,5,3,7,101,18]
+     * 输出: 4
+     * 解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。
+     * 说明:
+     * <p>
+     * 可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。
+     * 你算法的时间复杂度应该为 O(n2) 。
+     * 进阶: 你能将算法的时间复杂度降低到 O(n log n) 吗?
+     *
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS(int[] nums) {
+
+        int longLength = 0;
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[j] + 1, dp[i]);
+                }
+            }
+            longLength = Math.max(dp[i], longLength);
+        }
+
+        return longLength;
+        //错误写法
+        //处理错误及特殊情况
+//        if (nums.length == 1)
+//            return 1;
+//
+//
+//        int longlength = 0;
+//        int length = nums.length;
+//
+//        for (int i = 0; i < length - 1; i++) {
+//
+//            int currentLength = 1;
+//            int maxNum = nums[i];
+//
+//            for (int j = i + 1; j < length; j++) {
+//
+//                if(nums[j] > maxNum){
+//                    maxNum= nums[j];
+//                    currentLength++;
+//                }
+//            }
+//            longlength = Math.max(longlength,currentLength);
+//        }
+//        return longlength;
     }
     //类结束括号
 }

@@ -15,7 +15,8 @@ public void setUp(){
  //   System.out.println(dp.rob(new int[]{2,1,5,2}));
  //   System.out.println(dp.maxSubArray(new int[]{-2,-1}));
   //  System.out.println(dp.coinChange(new int[]{2,3,5},10));
-    System.out.println(dp.canJump(new int[]{2,3,1,1,4}));
+  //  System.out.println(dp.canJump(new int[]{2,3,1,1,4}));
+    System.out.println(dp.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
 }
 
 
@@ -55,5 +56,9 @@ public void setUp(){
 
     @Test
     public void canJump() {
+    }
+
+    @Test
+    public void lengthOfLIS() {
     }
 }
