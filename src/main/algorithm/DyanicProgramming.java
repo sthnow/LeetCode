@@ -1,3 +1,4 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Arrays;
 
 public class DyanicProgramming {
@@ -537,6 +538,21 @@ public class DyanicProgramming {
      */
     public int lengthOfLIS(int[] nums) {
 
+        /**
+         * 一般动态规划都是从后往前思考问题，从前往后解决问题，并且都存在 选 与 不选 的情况
+         *
+         * 动态规划三个条件：
+         * 1.状态转移方程
+         * 2.边界
+         * 3.最优子结构
+         *
+         * 本题思路：
+         * 设dp[i]数组存放位置为 i 的上升序列长度，位置为 i 的数字 num 为最长上升序列的最后一个数，上一个小于他的数的位置为 i - n，那么上升序长度
+         * 要么取dp[i - n] + 1 ,要么为 dp[i]，此为最优子结构
+         * 边界为 数 num 不存在任何上升序列时，序列的长度为 1
+         * 状态转移方程为： dp[i] = Math.max(dp[i],dp[j] + 1)
+         */
+
         int longLength = 0;
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
@@ -575,6 +591,43 @@ public class DyanicProgramming {
 //            longlength = Math.max(longlength,currentLength);
 //        }
 //        return longlength;
+    }
+
+
+    /**
+     * 不同路径
+     * 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+     *
+     * 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+     *
+     * 问总共有多少条不同的路径？
+     * @param m
+     * @param n
+     * @return
+     */
+    public int uniquePaths(int m, int n) {
+
+        //处理特殊情况
+        if(m == 1 || n == 1)
+            return 1;
+
+        int[][] dp = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = 1;
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = Math.max(dp[i][j],dp[i - 1][j]+dp[i][j-1]);
+            }
+        }
+
+        return dp[m-1][n-1];
     }
     //类结束括号
 }
