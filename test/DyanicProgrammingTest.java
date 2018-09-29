@@ -17,7 +17,8 @@ public void setUp(){
   //  System.out.println(dp.coinChange(new int[]{2,3,5},10));
   //  System.out.println(dp.canJump(new int[]{2,3,1,1,4}));
   //  System.out.println(dp.lengthOfLIS(new int[]{10,9,2,5,3,7,101,18}));
-    System.out.println(dp.uniquePaths(7,3));
+ //   System.out.println(dp.uniquePaths(7,3));
+    System.out.println(dp.maxProduct(new int[]{2,3,-2,4}));
 }
 
 
@@ -65,5 +66,9 @@ public void setUp(){
 
     @Test
     public void uniquePaths() {
+    }
+
+    @Test
+    public void maxProduct() {
     }
 }

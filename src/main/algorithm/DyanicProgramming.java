@@ -1,4 +1,3 @@
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Arrays;
 
 public class DyanicProgramming {
@@ -597,10 +596,11 @@ public class DyanicProgramming {
     /**
      * 不同路径
      * 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
-     *
+     * <p>
      * 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
-     *
+     * <p>
      * 问总共有多少条不同的路径？
+     *
      * @param m
      * @param n
      * @return
@@ -608,7 +608,7 @@ public class DyanicProgramming {
     public int uniquePaths(int m, int n) {
 
         //处理特殊情况
-        if(m == 1 || n == 1)
+        if (m == 1 || n == 1)
             return 1;
 
         int[][] dp = new int[m][n];
@@ -623,11 +623,58 @@ public class DyanicProgramming {
 
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-                dp[i][j] = Math.max(dp[i][j],dp[i - 1][j]+dp[i][j-1]);
+                //dp[i][j] = Math.max(dp[i][j],dp[i - 1][j]+dp[i][j-1]);
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
             }
         }
 
-        return dp[m-1][n-1];
+        return dp[m - 1][n - 1];
+    }
+
+
+    /**
+     * 乘积最大子序列
+     * 给定一个整数数组 nums ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: [2,3,-2,4]
+     * 输出: 6
+     * 解释: 子数组 [2,3] 有最大乘积 6。
+     * 示例 2:
+     * <p>
+     * 输入: [-2,0,-1]
+     * 输出: 0
+     * 解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+     *
+     * @param nums
+     * @return
+     */
+    public int maxProduct(int[] nums) {
+
+        //处理特殊及错误情况
+        if (nums.length == 1)
+            return nums[0];
+
+        int max = nums[0];
+        int min = nums[0];
+
+        int result = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+
+            //为什么要加这两句话？？？？？？？
+
+            //如果不加这两句，在求max的时候不影响，但是在求min的时候，max已经发生了变化，因此计算就出现了错误！！！！！！！
+            int tempMax = max;
+            int tempMin = min;
+
+            max = Math.max(nums[i], Math.max(nums[i] * tempMax, nums[i] * tempMin));
+            min = Math.min(nums[i], Math.min(nums[i] * tempMax, nums[i] *tempMin) );
+
+            result = Math.max(max,result);
+        }
+        return result;
     }
     //类结束括号
 }
