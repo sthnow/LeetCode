@@ -7,9 +7,9 @@ public class TreeNode {
     TreeNode right;
 
     //有参的构造方法
-    TreeNode(int x) {
-        val = x;
-    }
+    TreeNode(int x) { val = x; }
+
+    TreeNode(){}
 }
 
 
@@ -141,6 +141,40 @@ class Soultion {
         return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 
+    /**
+     * 中序遍历二叉树
+     * 中序遍历-左，根，右
+     * @param root
+     */
+    public void inOrder(TreeNode root){
+        if(root == null) return;
 
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+
+
+    /**
+     * 前序遍历二叉树
+     * 前序遍历-根，左，右
+     * @param root
+     */
+    public void preOrder(TreeNode root){
+        if(root == null) return;
+
+        System.out.print(root.val + " ");
+
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    public void postOrder(TreeNode root){
+        if(root == null) return;
+
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.val + " ");
+    }
     //类结束括号
 }
