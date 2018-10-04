@@ -656,6 +656,10 @@ public class DyanicProgramming {
         if (nums.length == 1)
             return nums[0];
 
+
+        /*
+        * 最大乘积子序列，要么是该数，要么是该数乘之前的最大序列
+        * 注意这里结果可以负负得正，所以不仅要保留最大值，也要保留最小值*/
         int max = nums[0];
         int min = nums[0];
 
