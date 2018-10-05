@@ -176,5 +176,53 @@ class Soultion {
         postOrder(root.right);
         System.out.print(root.val + " ");
     }
+
+
+
+
+
+    /**
+     * 二叉树的层次遍历
+     * 给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
+     * <p>
+     * 例如:
+     * 给定二叉树: [3,9,20,null,null,15,7],
+     * <p>
+     * 3
+     * / \
+     * 9  20
+     * /  \
+     * 15   7
+     * 返回其层次遍历结果：
+     * <p>
+     * [
+     * [3],
+     * [9,20],
+     * [15,7]
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if(root == null){
+            return result;
+        }
+        recursion(root, result, 0);
+        return result;
+    }
+    public void recursion(TreeNode node, List<List<Integer>> list, int dep){
+        if(node == null){
+            return;
+        }
+        if(dep == list.size()){
+            list.add(new ArrayList<Integer>());
+        }
+        list.get(dep).add(node.val);
+        recursion(node.left, list, dep+1);
+        recursion(node.right, list, dep+1);
+
+    }
     //类结束括号
 }
