@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public class TreeNode {
+public class TreeNode<T> {
     int val;
-    TreeNode left;
-    TreeNode right;
+    TreeNode<T> left;
+    TreeNode<T> right;
 
     //有参的构造方法
     TreeNode(int x) { val = x; }
@@ -13,7 +14,7 @@ public class TreeNode {
 }
 
 
-class Soultion {
+class Soultion<T> {
 
 
     /**
@@ -46,7 +47,7 @@ class Soultion {
      */
 
     //使用中序遍历的方式遍历二叉树
-    public void inOrder(TreeNode root,List<Integer> list){
+    public void inOrder(TreeNode<T> root, List<Integer> list){
         if(root == null) return;
         inOrder(root.left,list);
         list.add(root.val);
@@ -56,7 +57,7 @@ class Soultion {
     }
 
 
-    public boolean isValidBST(TreeNode root) {
+    public boolean isValidBST(TreeNode<T> root) {
         //将所用的数都保存到一个链表里，然后依次判断顺序
 
         //创建一个链表，用来保存二叉树中的所用数据
@@ -132,7 +133,7 @@ class Soultion {
      * @param root
      * @return
      */
-    public int maxDepth(TreeNode root) {
+    public int maxDepth(TreeNode<T> root) {
 
         if (root == null) return 0;
         if (root.left == null && root.right == null) return 1;
@@ -146,7 +147,7 @@ class Soultion {
      * 中序遍历-左，根，右
      * @param root
      */
-    public void inOrder(TreeNode root){
+    public void inOrder(TreeNode<T> root){
         if(root == null) return;
 
         inOrder(root.left);
@@ -160,7 +161,7 @@ class Soultion {
      * 前序遍历-根，左，右
      * @param root
      */
-    public void preOrder(TreeNode root){
+    public void preOrder(TreeNode<T> root){
         if(root == null) return;
 
         System.out.print(root.val + " ");
@@ -169,7 +170,7 @@ class Soultion {
         preOrder(root.right);
     }
 
-    public void postOrder(TreeNode root){
+    public void postOrder(TreeNode<T> root){
         if(root == null) return;
 
         postOrder(root.left);
@@ -203,7 +204,7 @@ class Soultion {
      * @param root
      * @return
      */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder(TreeNode<T> root) {
 
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         if(root == null){
@@ -212,7 +213,7 @@ class Soultion {
         recursion(root, result, 0);
         return result;
     }
-    public void recursion(TreeNode node, List<List<Integer>> list, int dep){
+    public void recursion(TreeNode<T> node, List<List<Integer>> list, int dep){
         if(node == null){
             return;
         }
@@ -224,5 +225,71 @@ class Soultion {
         recursion(node.right, list, dep+1);
 
     }
+    //类结束括号
+
+
+    /**
+     *前序遍历二叉树（非递归）
+     * @param root
+     */
+    public void PrintBinaryTreePreUnrecur(TreeNode<T> root){
+        TreeNode treeNode = root;
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        //当栈不为空，或者treenode ！= null的时候
+        while(treeNode != null || !stack.isEmpty()){
+            //如果当前节点不为空，压入栈中，并将左子节点给当前节点
+            if(treeNode != null){
+                stack.push(treeNode);
+                System.out.print(treeNode.val + " ");
+                treeNode = treeNode.left;
+            }
+            //如果当前左子节点为空，此时的栈顶元素是他的父节点
+            //如果右子节点为空，此时的栈顶元素爷爷节点及以上
+
+            //取出栈顶元素，将右子节点赋给他
+            else{
+                treeNode = stack.pop();
+                treeNode = treeNode.right;
+            }
+        }
+    }
+
+    /**
+     * 中序遍历二叉树
+     * @param root
+     */
+    public void PrintBinaryTreeMidUnrecur(TreeNode<T> root){
+        TreeNode<T> treeNode = root;
+
+        //创建堆栈，用于存放遍历过程中的节点
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        //当treenode != null 或者 stack不为空时，将左子节点给treenode
+
+        while(treeNode != null || !stack.isEmpty()){
+           if(treeNode != null){
+               stack.push(treeNode);
+               treeNode = treeNode.left;
+           }
+
+
+            //当左子节点为空时,弹出父节点
+            //当右子节点为空时,弹出爷爷节点
+            else{
+               treeNode = stack.pop();
+               System.out.print(treeNode.val);
+               treeNode = treeNode.right;
+
+
+           }
+        }
+
+
+
+
+    }
+
+
     //类结束括号
 }
