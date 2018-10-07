@@ -1,3 +1,5 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,9 +10,12 @@ public class TreeNode<T> {
     TreeNode<T> right;
 
     //有参的构造方法
-    TreeNode(int x) { val = x; }
+    TreeNode(int x) {
+        val = x;
+    }
 
-    TreeNode(){}
+    TreeNode() {
+    }
 }
 
 
@@ -47,11 +52,11 @@ class Soultion<T> {
      */
 
     //使用中序遍历的方式遍历二叉树
-    public void inOrder(TreeNode<T> root, List<Integer> list){
-        if(root == null) return;
-        inOrder(root.left,list);
+    public void inOrder(TreeNode<T> root, List<Integer> list) {
+        if (root == null) return;
+        inOrder(root.left, list);
         list.add(root.val);
-        inOrder(root.right,list);
+        inOrder(root.right, list);
 
 
     }
@@ -64,9 +69,9 @@ class Soultion<T> {
         List<Integer> list = new ArrayList<Integer>();
 
         //中序遍历二叉树，保存值到链表中
-        inOrder(root,list);
+        inOrder(root, list);
         for (int i = 0; i < list.size() - 1; i++) {
-            if(list.get(i) >= list.get(i+1)){
+            if (list.get(i) >= list.get(i + 1)) {
                 return false;
             }
         }
@@ -145,10 +150,11 @@ class Soultion<T> {
     /**
      * 中序遍历二叉树
      * 中序遍历-左，根，右
+     *
      * @param root
      */
-    public void inOrder(TreeNode<T> root){
-        if(root == null) return;
+    public void inOrder(TreeNode<T> root) {
+        if (root == null) return;
 
         inOrder(root.left);
         System.out.print(root.val + " ");
@@ -159,10 +165,11 @@ class Soultion<T> {
     /**
      * 前序遍历二叉树
      * 前序遍历-根，左，右
+     *
      * @param root
      */
-    public void preOrder(TreeNode<T> root){
-        if(root == null) return;
+    public void preOrder(TreeNode<T> root) {
+        if (root == null) return;
 
         System.out.print(root.val + " ");
 
@@ -170,16 +177,13 @@ class Soultion<T> {
         preOrder(root.right);
     }
 
-    public void postOrder(TreeNode<T> root){
-        if(root == null) return;
+    public void postOrder(TreeNode<T> root) {
+        if (root == null) return;
 
         postOrder(root.left);
         postOrder(root.right);
         System.out.print(root.val + " ");
     }
-
-
-
 
 
     /**
@@ -207,39 +211,41 @@ class Soultion<T> {
     public List<List<Integer>> levelOrder(TreeNode<T> root) {
 
         List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(root == null){
+        if (root == null) {
             return result;
         }
         recursion(root, result, 0);
         return result;
     }
-    public void recursion(TreeNode<T> node, List<List<Integer>> list, int dep){
-        if(node == null){
+
+    public void recursion(TreeNode<T> node, List<List<Integer>> list, int dep) {
+        if (node == null) {
             return;
         }
-        if(dep == list.size()){
+        if (dep == list.size()) {
             list.add(new ArrayList<Integer>());
         }
         list.get(dep).add(node.val);
-        recursion(node.left, list, dep+1);
-        recursion(node.right, list, dep+1);
+        recursion(node.left, list, dep + 1);
+        recursion(node.right, list, dep + 1);
 
     }
     //类结束括号
 
 
     /**
-     *前序遍历二叉树（非递归）
+     * 前序遍历二叉树（非递归）
+     *
      * @param root
      */
-    public void PrintBinaryTreePreUnrecur(TreeNode<T> root){
+    public void PrintBinaryTreePreUnrecur(TreeNode<T> root) {
         TreeNode treeNode = root;
         LinkedList<TreeNode> stack = new LinkedList<>();
 
         //当栈不为空，或者treenode ！= null的时候
-        while(treeNode != null || !stack.isEmpty()){
+        while (treeNode != null || !stack.isEmpty()) {
             //如果当前节点不为空，压入栈中，并将左子节点给当前节点
-            if(treeNode != null){
+            if (treeNode != null) {
                 stack.push(treeNode);
                 System.out.print(treeNode.val + " ");
                 treeNode = treeNode.left;
@@ -248,7 +254,7 @@ class Soultion<T> {
             //如果右子节点为空，此时的栈顶元素爷爷节点及以上
 
             //取出栈顶元素，将右子节点赋给他
-            else{
+            else {
                 treeNode = stack.pop();
                 treeNode = treeNode.right;
             }
@@ -257,9 +263,10 @@ class Soultion<T> {
 
     /**
      * 中序遍历二叉树
+     *
      * @param root
      */
-    public void PrintBinaryTreeMidUnrecur(TreeNode<T> root){
+    public void PrintBinaryTreeMidUnrecur(TreeNode<T> root) {
         TreeNode<T> treeNode = root;
 
         //创建堆栈，用于存放遍历过程中的节点
@@ -267,29 +274,108 @@ class Soultion<T> {
 
         //当treenode != null 或者 stack不为空时，将左子节点给treenode
 
-        while(treeNode != null || !stack.isEmpty()){
-           if(treeNode != null){
-               stack.push(treeNode);
-               treeNode = treeNode.left;
-           }
+        while (treeNode != null || !stack.isEmpty()) {
+            if (treeNode != null) {
+                stack.push(treeNode);
+                treeNode = treeNode.left;
+            }
 
 
             //当左子节点为空时,弹出父节点
             //当右子节点为空时,弹出爷爷节点
-            else{
-               treeNode = stack.pop();
-               System.out.print(treeNode.val);
-               treeNode = treeNode.right;
+            else {
+                treeNode = stack.pop();
+                System.out.print(treeNode.val);
+                treeNode = treeNode.right;
 
 
-           }
+            }
         }
-
-
-
 
     }
 
+    /*
+     * 后序遍历二叉树（非递归）
+     *
+     */
+    public void PrintBinaryTreeBacUnrecur(TreeNode<T> root)
+    {
+        class NodeFlag<T>
+        {
+            TreeNode<T> node;
+            char tag;
+            public NodeFlag(TreeNode<T> node, char tag) {
+                super();
+                this.node = node;
+                this.tag = tag;
+            }
+        }
+        LinkedList<NodeFlag<T>> stack=new LinkedList<>();
+        TreeNode<T> p=root;
+        NodeFlag<T> bt;
+        //栈不空或者p不空时循环
+        while(p!=null || !stack.isEmpty())
+        {
+            //遍历左子树
+            while(p!=null)
+            {
+                bt=new NodeFlag(p, 'L');
+                stack.push(bt);
+                p=p.left;
+            }
+            //左右子树访问完毕访问根节点
+            while(!stack.isEmpty() && stack.getFirst().tag=='R')
+            {
+                bt=stack.pop();
+                System.out.print(bt.node.val);
+            }
+            //遍历右子树
+            if (!stack.isEmpty())
+            {
+                bt=stack.peek();
+
+                //如果左子节点为空，将其父节点的状态改为 输出
+                bt.tag='R';
+                p=bt.node;
+
+                //遍历到其右子节点，
+                // 如果右子节点不为null，则继续向下遍历，状态为不可输出
+                //如果左子节点为null，则输出其父节点，根据其父节点的状态判断是否输出
+                p=p.right;
+            }
+        }
+    }
+
+
+
+    /*
+    * 层次遍历，非递归方式实现
+    * */
+
+    public void PrintBinaryTreeLayerUnrecur(TreeNode<T> root){
+
+        //遍历的时候，将遍历过的节点放在队列中
+        //使用LinkedList实现队列
+
+        LinkedList<TreeNode> queue = new LinkedList<>();
+
+        TreeNode<T> treeNode;
+
+        queue.push(root);
+
+        while(!queue.isEmpty()){
+            treeNode = queue.removeFirst();
+            System.out.println(treeNode.val);
+
+            if(treeNode.left != null){
+                queue.addLast(treeNode.left);
+            }
+
+            if(treeNode.right != null){
+                queue.addLast(treeNode.right);
+            }
+        }
+    }
 
     //类结束括号
 }

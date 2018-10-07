@@ -11,7 +11,8 @@ public class TreeNodeTest{
 //        soultion.preOrder(treeNode);
 //        soultion.postOrder(treeNode);
 //        soultion.PrintBinaryTreePreUnrecur(treeNode);
-        soultion.PrintBinaryTreeMidUnrecur(treeNode);
+//        soultion.PrintBinaryTreeMidUnrecur(treeNode);
+        soultion.PrintBinaryTreeLayerUnrecur(treeNode);
     }
 
 
