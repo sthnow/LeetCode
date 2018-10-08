@@ -1,5 +1,3 @@
-import sun.reflect.generics.tree.Tree;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -298,50 +296,45 @@ class Soultion<T> {
      * 后序遍历二叉树（非递归）
      *
      */
-    public void PrintBinaryTreeBacUnrecur(TreeNode<T> root)
-    {
-        class NodeFlag<T>
-        {
+    public void PrintBinaryTreeBacUnrecur(TreeNode<T> root) {
+        class NodeFlag<T> {
             TreeNode<T> node;
             char tag;
+
             public NodeFlag(TreeNode<T> node, char tag) {
                 super();
                 this.node = node;
                 this.tag = tag;
             }
         }
-        LinkedList<NodeFlag<T>> stack=new LinkedList<>();
-        TreeNode<T> p=root;
+        LinkedList<NodeFlag<T>> stack = new LinkedList<>();
+        TreeNode<T> p = root;
         NodeFlag<T> bt;
         //栈不空或者p不空时循环
-        while(p!=null || !stack.isEmpty())
-        {
+        while (p != null || !stack.isEmpty()) {
             //遍历左子树
-            while(p!=null)
-            {
-                bt=new NodeFlag(p, 'L');
+            while (p != null) {
+                bt = new NodeFlag(p, 'L');
                 stack.push(bt);
-                p=p.left;
+                p = p.left;
             }
             //左右子树访问完毕访问根节点
-            while(!stack.isEmpty() && stack.getFirst().tag=='R')
-            {
-                bt=stack.pop();
+            while (!stack.isEmpty() && stack.getFirst().tag == 'R') {
+                bt = stack.pop();
                 System.out.print(bt.node.val);
             }
             //遍历右子树
-            if (!stack.isEmpty())
-            {
-                bt=stack.peek();
+            if (!stack.isEmpty()) {
+                bt = stack.peek();
 
                 //如果左子节点为空，将其父节点的状态改为 输出
-                bt.tag='R';
-                p=bt.node;
+                bt.tag = 'R';
+                p = bt.node;
 
                 //遍历到其右子节点，
                 // 如果右子节点不为null，则继续向下遍历，状态为不可输出
                 //如果左子节点为null，则输出其父节点，根据其父节点的状态判断是否输出
-                p=p.right;
+                p = p.right;
             }
         }
     }
@@ -349,10 +342,10 @@ class Soultion<T> {
 
 
     /*
-    * 层次遍历，非递归方式实现
-    * */
+     * 层次遍历，非递归方式实现
+     * */
 
-    public void PrintBinaryTreeLayerUnrecur(TreeNode<T> root){
+    public void PrintBinaryTreeLayerUnrecur(TreeNode<T> root) {
 
         //遍历的时候，将遍历过的节点放在队列中
         //使用LinkedList实现队列
@@ -363,49 +356,51 @@ class Soultion<T> {
 
         queue.push(root);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             treeNode = queue.removeFirst();
             System.out.println(treeNode.val);
 
-            if(treeNode.left != null){
+            if (treeNode.left != null) {
                 queue.addLast(treeNode.left);
             }
 
-            if(treeNode.right != null){
+            if (treeNode.right != null) {
                 queue.addLast(treeNode.right);
             }
         }
     }
+
     public List<List<Integer>> levelOrder1(TreeNode root) {
 
         //新建一个总list
         List<List<Integer>> lists = new ArrayList<>();
 
 
-        if(root == null)
-            return lists;
+        if (root == null)
+            return null;
         //使用recursion函数迭代逐层,从左往右访问所有节点
 
-        recursion1(lists,root,0);
-        return  lists;
+        recursion1(lists, root, 0);
+        return lists;
 
     }
 
     /**
      * 通过recursion函数迭代,将对应层数的节点放入对应的list中
+     *
      * @param treenode
      * @param dep
      * @return
      */
-    public void recursion1(List<List<Integer>> list,TreeNode<T> treenode,int dep){
+    public List<List<Integer>> recursion1(List<List<Integer>> list, TreeNode<T> treenode, int dep) {
 
         //如果传入的节点为null,即上一个节点没有子节点
 
-        if(treenode == null) return null;
+        if (treenode == null) return null;
 
 
         //如果传入的list没有对应的层数,新建对应该层的list
-        if( list.size() == dep){
+        if (list.size() == dep) {
             List<Integer> sublist = new ArrayList<>();
             list.add(sublist);
         }
@@ -413,9 +408,56 @@ class Soultion<T> {
         list.get(dep).add(treenode.val);
 
         //迭代放入节点
-        recursion1(list, treenode.left,dep+1);
-        recursion1(list,treenode.right,dep+1);
+        recursion1(list, treenode.left, dep + 1);
+        recursion1(list, treenode.right, dep + 1);
 
+        return list;
+    }
+
+    /**
+     * 对称二叉树
+     * 给定一个二叉树，检查它是否是镜像对称的。
+     * <p>
+     * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+     * <p>
+     * 1
+     * / \
+     * 2   2
+     * / \ / \
+     * 3  4 4  3
+     * 但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+     * <p>
+     * 1
+     * / \
+     * 2   2
+     * \   \
+     * 3    3
+     * 说明:
+     * <p>
+     * 如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
+     *
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        return isSymmetrical(root, root);
+    }
+
+    private static boolean isSymmetrical(TreeNode left, TreeNode right) {
+
+        if (left == null && right == null) {
+            return true;
+        }
+
+        if (left == null || right == null) {
+            return false;
+        }
+
+        if (left.val != right.val ) {
+            return false;
+        }
+
+        return isSymmetrical(left.left, right.right) && isSymmetrical(left.right, right.left);
     }
     //类结束括号
 }
