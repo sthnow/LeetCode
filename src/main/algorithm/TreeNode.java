@@ -376,6 +376,46 @@ class Soultion<T> {
             }
         }
     }
+    public List<List<Integer>> levelOrder1(TreeNode root) {
 
+        //新建一个总list
+        List<List<Integer>> lists = new ArrayList<>();
+
+
+        if(root == null)
+            return lists;
+        //使用recursion函数迭代逐层,从左往右访问所有节点
+
+        recursion1(lists,root,0);
+        return  lists;
+
+    }
+
+    /**
+     * 通过recursion函数迭代,将对应层数的节点放入对应的list中
+     * @param treenode
+     * @param dep
+     * @return
+     */
+    public void recursion1(List<List<Integer>> list,TreeNode<T> treenode,int dep){
+
+        //如果传入的节点为null,即上一个节点没有子节点
+
+        if(treenode == null) return null;
+
+
+        //如果传入的list没有对应的层数,新建对应该层的list
+        if( list.size() == dep){
+            List<Integer> sublist = new ArrayList<>();
+            list.add(sublist);
+        }
+
+        list.get(dep).add(treenode.val);
+
+        //迭代放入节点
+        recursion1(list, treenode.left,dep+1);
+        recursion1(list,treenode.right,dep+1);
+
+    }
     //类结束括号
 }
