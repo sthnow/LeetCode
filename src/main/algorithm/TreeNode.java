@@ -1,3 +1,5 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -459,5 +461,47 @@ class Soultion<T> {
 
         return isSymmetrical(left.left, right.right) && isSymmetrical(left.right, right.left);
     }
+
+
+    /**
+     * 中序遍历二叉树
+     * 给定一个二叉树，返回它的中序 遍历。
+     *
+     * 示例:
+     *
+     * 输入: [1,null,2,3]
+     *    1
+     *     \
+     *      2
+     *     /
+     *    3
+     *
+     * 输出: [1,3,2]
+     * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode<T> root) {
+        //迭代算法
+
+        List<Integer> list = new ArrayList<>();
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        TreeNode<T> treeNode = root;
+
+        while(treeNode != null || !stack.isEmpty()){
+            if(treeNode != null){
+                stack.push(treeNode);
+                treeNode = treeNode.left;
+            }else{
+                treeNode = stack.pop();
+                list.add(treeNode.val);
+                treeNode = treeNode.right;
+            }
+
+        }
+        return list;
+    }
     //类结束括号
 }
+

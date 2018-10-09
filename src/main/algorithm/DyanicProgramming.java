@@ -650,7 +650,7 @@ public class DyanicProgramming {
      * @param nums
      * @return
      */
-    public int maxProduct(int[] nums) {
+    public int maxProduct(int[] nums)  {
 
         //处理特殊及错误情况
         if (nums.length == 1)

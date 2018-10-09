@@ -64,9 +64,7 @@ public class StringQTest {
     public void isPalindrome() {
     }
 
-    @Test
-    public void longestCommonPrefix() {
-    }
+
 
     @Test
     public void countPrimes() {
