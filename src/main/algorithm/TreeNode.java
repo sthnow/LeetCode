@@ -22,6 +22,23 @@ public class TreeNode<T> {
 class Soultion<T> {
 
 
+    private static boolean isSymmetrical(TreeNode left, TreeNode right) {
+
+        if (left == null && right == null) {
+            return true;
+        }
+
+        if (left == null || right == null) {
+            return false;
+        }
+
+        if (left.val != right.val) {
+            return false;
+        }
+
+        return isSymmetrical(left.left, right.right) && isSymmetrical(left.right, right.left);
+    }
+
     /**
      * 验证二叉搜索树
      * 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
@@ -58,24 +75,6 @@ class Soultion<T> {
         list.add(root.val);
         inOrder(root.right, list);
 
-
-    }
-
-
-    public boolean isValidBST(TreeNode<T> root) {
-        //将所用的数都保存到一个链表里，然后依次判断顺序
-
-        //创建一个链表，用来保存二叉树中的所用数据
-        List<Integer> list = new ArrayList<Integer>();
-
-        //中序遍历二叉树，保存值到链表中
-        inOrder(root, list);
-        for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i) >= list.get(i + 1)) {
-                return false;
-            }
-        }
-        return true;
 
     }
     //在这种情况下只能比较一个节点及其子结点的大小顺序，保证这个是一个而二叉搜索树，而无法比较两个节点与其子节点的顺序，即无法保证整个树都是二叉搜索树
@@ -116,6 +115,22 @@ class Soultion<T> {
 //        }
 //    }
 
+    public boolean isValidBST(TreeNode<T> root) {
+        //将所用的数都保存到一个链表里，然后依次判断顺序
+
+        //创建一个链表，用来保存二叉树中的所用数据
+        List<Integer> list = new ArrayList<Integer>();
+
+        //中序遍历二叉树，保存值到链表中
+        inOrder(root, list);
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (list.get(i) >= list.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
 
     /**
      * 二叉树的最大深度
@@ -161,7 +176,6 @@ class Soultion<T> {
         inOrder(root.right);
     }
 
-
     /**
      * 前序遍历二叉树
      * 前序遍历-根，左，右
@@ -184,7 +198,6 @@ class Soultion<T> {
         postOrder(root.right);
         System.out.print(root.val + " ");
     }
-
 
     /**
      * 二叉树的层次遍历
@@ -217,6 +230,7 @@ class Soultion<T> {
         recursion(root, result, 0);
         return result;
     }
+    //类结束括号
 
     public void recursion(TreeNode<T> node, List<List<Integer>> list, int dep) {
         if (node == null) {
@@ -230,8 +244,6 @@ class Soultion<T> {
         recursion(node.right, list, dep + 1);
 
     }
-    //类结束括号
-
 
     /**
      * 前序遍历二叉树（非递归）
@@ -294,6 +306,12 @@ class Soultion<T> {
 
     }
 
+
+
+    /*
+     * 层次遍历，非递归方式实现
+     * */
+
     /*
      * 后序遍历二叉树（非递归）
      *
@@ -340,12 +358,6 @@ class Soultion<T> {
             }
         }
     }
-
-
-
-    /*
-     * 层次遍历，非递归方式实现
-     * */
 
     public void PrintBinaryTreeLayerUnrecur(TreeNode<T> root) {
 
@@ -445,39 +457,22 @@ class Soultion<T> {
         return isSymmetrical(root, root);
     }
 
-    private static boolean isSymmetrical(TreeNode left, TreeNode right) {
-
-        if (left == null && right == null) {
-            return true;
-        }
-
-        if (left == null || right == null) {
-            return false;
-        }
-
-        if (left.val != right.val ) {
-            return false;
-        }
-
-        return isSymmetrical(left.left, right.right) && isSymmetrical(left.right, right.left);
-    }
-
-
     /**
      * 中序遍历二叉树
      * 给定一个二叉树，返回它的中序 遍历。
-     *
+     * <p>
      * 示例:
-     *
+     * <p>
      * 输入: [1,null,2,3]
-     *    1
-     *     \
-     *      2
-     *     /
-     *    3
-     *
+     * 1
+     * \
+     * 2
+     * /
+     * 3
+     * <p>
      * 输出: [1,3,2]
      * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+     *
      * @param root
      * @return
      */
@@ -489,11 +484,12 @@ class Soultion<T> {
 
         TreeNode<T> treeNode = root;
 
-        while(treeNode != null || !stack.isEmpty()){
-            if(treeNode != null){
+
+        while (treeNode != null || !stack.isEmpty()) {
+            if (treeNode != null) {
                 stack.push(treeNode);
                 treeNode = treeNode.left;
-            }else{
+            } else {
                 treeNode = stack.pop();
                 list.add(treeNode.val);
                 treeNode = treeNode.right;
@@ -501,6 +497,69 @@ class Soultion<T> {
 
         }
         return list;
+    }
+
+
+    /**
+     * 二叉树的锯齿形层次遍历
+     * 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     * <p>
+     * 例如：
+     * 给定二叉树 [3,9,20,null,null,15,7],
+     * <p>
+     * 3
+     * / \
+     * 9  20
+     * /  \
+     * 15   7
+     * 返回锯齿形层次遍历如下：
+     * <p>
+     * [
+     * [3],
+     * [20,9],
+     * [15,7]
+     * ]
+     *
+     * @param root
+     * @return
+     */
+
+    public List<LinkedList<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<LinkedList<Integer>> allList = new LinkedList<>();
+
+        recursion(allList,root,0);
+        return  allList;
+    }
+
+
+    //使用迭代的方法将节点的值放如linkedList中
+    public List<LinkedList<Integer>> recursion(List<LinkedList<Integer>> allList, TreeNode<T> treeNode, int dep) {
+        //LinkedList为双向链表，可以被当作堆栈，队列或者双端队列使用
+        /*
+         * 实现方法
+         *   如果dep为奇数，将节点的值添加到表尾
+         *   如果dep为偶数，将节点的值添加到表头
+         */
+
+        if(treeNode == null) return null;
+
+
+        if(dep == allList.size()){
+            LinkedList<Integer> subList = new LinkedList<>();
+            allList.add(subList);
+            }
+
+        //如果dep为奇数
+        if(dep % 2 != 0){
+           allList.get(dep).addFirst(treeNode.val);
+        }else{
+            allList.get(dep).addLast(treeNode.val);
+        }
+
+        recursion(allList,treeNode.left,dep+1);
+        recursion(allList,treeNode.right,dep+1);
+
+        return allList;
     }
     //类结束括号
 }

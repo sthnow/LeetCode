@@ -1,10 +1,11 @@
 public class TreeNodeTest {
     public static <T> void main(String[] args) {
-        TreeNode<T> treeNode = new TreeNode<T>();
-        treeNode.val = 2;
-        treeNode.left = new TreeNode<T>(3);
-        treeNode.right = new TreeNode<T>(3);
- //       treeNode.left.left = new TreeNode<T>(4);
+        TreeNode<Integer> treeNode = new TreeNode<>();
+        treeNode.val = 3;
+        treeNode.left = new TreeNode<>(9);
+        treeNode.right = new TreeNode<>(20);
+        treeNode.right.left = new TreeNode<>(15);
+        treeNode.right.right = new TreeNode<>(7);
         Soultion soultion = new Soultion();
 
 //        soultion.inOrder(treeNode);
@@ -13,7 +14,8 @@ public class TreeNodeTest {
 //        soultion.PrintBinaryTreePreUnrecur(treeNode);
 //        soultion.PrintBinaryTreeMidUnrecur(treeNode);
 //        soultion.PrintBinaryTreeLayerUnrecur(treeNode);
-        soultion.isSymmetric(treeNode);
+//        soultion.isSymmetric(treeNode);
+        soultion.zigzagLevelOrder(treeNode);
     }
 
 
