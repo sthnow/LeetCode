@@ -15,7 +15,7 @@ public class TreeNodeTest {
 //        soultion.PrintBinaryTreeMidUnrecur(treeNode);
 //        soultion.PrintBinaryTreeLayerUnrecur(treeNode);
 //        soultion.isSymmetric(treeNode);
-        soultion.zigzagLevelOrder(treeNode);
+        soultion.zigzagLevelOrderList(treeNode);
     }
 
 

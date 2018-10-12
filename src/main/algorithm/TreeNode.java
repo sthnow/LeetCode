@@ -1,5 +1,3 @@
-import sun.reflect.generics.tree.Tree;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -394,7 +392,7 @@ class Soultion<T> {
             return null;
         //使用recursion函数迭代逐层,从左往右访问所有节点
 
-        recursion1(lists, root, 0);
+        recursion2(lists, root, 0);
         return lists;
 
     }
@@ -406,7 +404,7 @@ class Soultion<T> {
      * @param dep
      * @return
      */
-    public List<List<Integer>> recursion1(List<List<Integer>> list, TreeNode<T> treenode, int dep) {
+    public List<List<Integer>> recursion2(List<List<Integer>> list, TreeNode<T> treenode, int dep) {
 
         //如果传入的节点为null,即上一个节点没有子节点
 
@@ -422,8 +420,8 @@ class Soultion<T> {
         list.get(dep).add(treenode.val);
 
         //迭代放入节点
-        recursion1(list, treenode.left, dep + 1);
-        recursion1(list, treenode.right, dep + 1);
+        recursion2(list, treenode.left, dep + 1);
+        recursion2(list, treenode.right, dep + 1);
 
         return list;
     }
@@ -501,7 +499,7 @@ class Soultion<T> {
 
 
     /**
-     * 二叉树的锯齿形层次遍历
+     * 二叉树的锯齿形层次遍历——使用LinkedList实现
      * 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
      * <p>
      * 例如：
@@ -527,13 +525,13 @@ class Soultion<T> {
     public List<LinkedList<Integer>> zigzagLevelOrder(TreeNode root) {
         List<LinkedList<Integer>> allList = new LinkedList<>();
 
-        recursion(allList,root,0);
-        return  allList;
+        recursion1(allList, root, 0);
+        return allList;
     }
 
 
     //使用迭代的方法将节点的值放如linkedList中
-    public List<LinkedList<Integer>> recursion(List<LinkedList<Integer>> allList, TreeNode<T> treeNode, int dep) {
+    public List<LinkedList<Integer>> recursion1(List<LinkedList<Integer>> allList, TreeNode<T> treeNode, int dep) {
         //LinkedList为双向链表，可以被当作堆栈，队列或者双端队列使用
         /*
          * 实现方法
@@ -541,23 +539,85 @@ class Soultion<T> {
          *   如果dep为偶数，将节点的值添加到表头
          */
 
-        if(treeNode == null) return null;
+        if (treeNode == null) return null;
 
 
-        if(dep == allList.size()){
+        if (dep == allList.size()) {
             LinkedList<Integer> subList = new LinkedList<>();
             allList.add(subList);
-            }
+        }
 
         //如果dep为奇数
-        if(dep % 2 != 0){
-           allList.get(dep).addFirst(treeNode.val);
-        }else{
+        if (dep % 2 != 0) {
+            allList.get(dep).addFirst(treeNode.val);
+        } else {
             allList.get(dep).addLast(treeNode.val);
         }
 
-        recursion(allList,treeNode.left,dep+1);
-        recursion(allList,treeNode.right,dep+1);
+        recursion1(allList, treeNode.left, dep + 1);
+        recursion1(allList, treeNode.right, dep + 1);
+
+        return allList;
+    }
+
+
+    /**
+     * 二叉树的锯齿形层次遍历——使用List实现
+     * 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+     * <p>
+     * 例如：
+     * 给定二叉树 [3,9,20,null,null,15,7],
+     * <p>
+     * 3
+     * / \
+     * 9  20
+     * /  \
+     * 15   7
+     * 返回锯齿形层次遍历如下：
+     * <p>
+     * [
+     * [3],
+     * [20,9],
+     * [15,7]
+     * ]
+     *
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> zigzagLevelOrderList(TreeNode root) {
+        List<List<Integer>> allList = new LinkedList<>();
+
+        recursionZig(allList, root, 0);
+        return allList;
+    }
+
+
+    //使用迭代的方法将节点的值放如linkedList中
+    public List<List<Integer>> recursionZig(List<List<Integer>> allList, TreeNode<T> treeNode, int dep) {
+        //LinkedList为双向链表，可以被当作堆栈，队列或者双端队列使用
+        /*
+         * 实现方法
+         *   如果dep为奇数，将节点的值添加到表尾
+         *   如果dep为偶数，将节点的值添加到表头
+         */
+
+        if (treeNode == null) return null;
+
+
+        if (dep == allList.size()) {
+            List<Integer> subList = new LinkedList<>();
+            allList.add(subList);
+        }
+
+        //如果dep为奇数
+        if (dep % 2 != 0) {
+            allList.get(dep).add(0,treeNode.val);
+        } else {
+            allList.get(dep).add(allList.get(dep).size(),treeNode.val);
+        }
+
+        recursionZig(allList, treeNode.left, dep + 1);
+        recursionZig(allList, treeNode.right, dep + 1);
 
         return allList;
     }
