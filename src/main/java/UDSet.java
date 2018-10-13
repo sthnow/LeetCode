@@ -49,8 +49,21 @@ public class UDSet {
             //而且String类型的hashcode并不是返回一个固定长度的int值，而是随着value的长度改变
             //String中hashcode的方法
 
+            //Sting类中hashCode的源码
+
             /* public int hashCode() {
             //hash值默认是0
+            //value使传入String的值
+
+            / *以 "1" 为例
+            / 默认hash值为0
+            / value.length为1
+            / h = 31 * 0 + val[0]
+            / val[0] 就是 1
+            / ！字符数组存放的是 ASCII码 ， 1 的ASCII码是49
+            / 因此 h = 49
+            / 所以 1 的hashCode值就是49
+
                 int h = hash;
                 if (h == 0 && value.length > 0) {
                     char val[] = value;
@@ -63,6 +76,8 @@ public class UDSet {
                 }
                 return h;
             }*/
+
+
             System.out.println(s.hashCode());
             System.out.println("++++++");
         }
@@ -73,6 +88,8 @@ public class UDSet {
         * String对象的值是使用
         * final char[]修饰，因此String对象的值不可改变
         * 若修改string的值，实际上是新建了一个String实例，使对象的引用指向了这个实例*/
+
+        //因为 "1" 的AscII码是49，根据上面的分析（String中关于hashcode的源码）可以看出，"1"的hashCode值就是49
         System.out.println(new String("1").hashCode());
         System.out.println("2".hashCode());
         System.out.println("3".hashCode());
