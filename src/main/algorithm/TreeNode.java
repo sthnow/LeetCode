@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -611,15 +612,88 @@ class Soultion<T> {
 
         //如果dep为奇数
         if (dep % 2 != 0) {
-            allList.get(dep).add(0,treeNode.val);
+            allList.get(dep).add(0, treeNode.val);
         } else {
-            allList.get(dep).add(allList.get(dep).size(),treeNode.val);
+            allList.get(dep).add(allList.get(dep).size(), treeNode.val);
         }
 
         recursionZig(allList, treeNode.left, dep + 1);
         recursionZig(allList, treeNode.right, dep + 1);
 
         return allList;
+    }
+
+
+    /**
+     * 二叉搜索树中第K小的元素
+     * 给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
+     * <p>
+     * 说明：
+     * 你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。
+     * <p>
+     * 示例 1:
+     * <p>
+     * 输入: root = [3,1,4,null,2], k = 1
+     * 3
+     * / \
+     * 1   4
+     * \
+     * 2
+     * 输出: 1
+     * 示例 2:
+     * <p>
+     * 输入: root = [5,3,6,2,4,null,null,1], k = 3
+     * 5
+     * / \
+     * 3   6
+     * / \
+     * 2   4
+     * /
+     * 1
+     * 输出: 3
+     * 进阶：
+     * 如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？
+     *
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthSmallest(TreeNode root, int k) {
+        /*
+         * 思路：
+         * 先将遍历二叉树，将二叉树的值放入ArrayList中
+         * 然后再将ArrayList转化为数组，将输入排序，返回第 k 个值*/
+
+        //处理特殊情况
+        if (root == null)
+            return 0;
+
+        List<Integer> arraylist = new ArrayList<>();
+
+        //通过中序遍历-非迭代的方式遍历二叉树
+        //声明一个堆栈,使用LinkedList实现，用于中序遍历的中间过程
+
+        List<TreeNode> linkedList = new LinkedList<>();
+
+        while (root != null || !linkedList.isEmpty()) {
+            if (root != null) {
+                linkedList.add(root);
+                root = root.left;
+            } else {
+                TreeNode treeNode = ((LinkedList<TreeNode>) linkedList).pollLast();
+
+                //      System.out.println(treeNode.val );
+
+                arraylist.add(treeNode.val);
+
+                root = treeNode.right;
+            }
+        }
+
+        Integer[] nums = arraylist.toArray(new Integer[arraylist.size()]);
+        Arrays.sort(nums);
+        System.out.println(nums[k - 1]);
+        return nums[k - 1];
     }
     //类结束括号
 }

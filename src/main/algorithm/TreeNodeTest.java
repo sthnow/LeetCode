@@ -20,6 +20,7 @@ public class TreeNodeTest {
 //        soultion.PrintBinaryTreeLayerUnrecur(treeNode);
 //        soultion.isSymmetric(treeNode);
 //        soultion.zigzagLevelOrderList(treeNode);
+        soultion.kthSmallest(treeNode,1);
 
 
     }
