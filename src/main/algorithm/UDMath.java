@@ -66,6 +66,7 @@ public class UDMath {
      * <p>
      * 输入: 5
      * 输出: 1
+     * 输出: 1
      * 解释: 5! = 120, 尾数中有 1 个零.
      * 说明: 你算法的时间复杂度应为 O(log n) 。
      *
@@ -86,8 +87,44 @@ public class UDMath {
                 flag = false;
         }
         return num;
+
     }
 
 
+    /**
+     * 移位运算实现加减乘除详解以及java源码实现
+     */
+    /**
+     * 使用位运算实现数字加法
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public int UDAdd(int a, int b) {
+
+        //不进位加法
+        int result,carry;
+        result= a ^ b;
+
+        //如果两数相加有进位
+        carry = (a & b) << 1;
+
+        //当进位不为0时
+        while (carry != 0) {
+            //不带进位的结果加上进位
+            result = a ^ b;
+            //判断有没有进位
+            carry = (a & b) <<1;
+            a = result;
+            b = carry;
+        }
+        return result;
+    }
+
+
+    public int UDSub(int a, int b){
+        return UDAdd(a,UDAdd(~b,1));
+    }
     //类结束括号
 }
