@@ -1,4 +1,7 @@
-public class UDMath {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MyMath {
 
 
     /**
@@ -125,6 +128,54 @@ public class UDMath {
 
     public int UDSub(int a, int b){
         return UDAdd(a,UDAdd(~b,1));
+    }
+
+
+    /**
+     * 二进制乘法
+     * 先看一个实例：1011*1010：
+     *
+     * 1011
+     *    * 1010
+     *  ----------
+     *     10110 < 左移一位，乘以0010
+     * + 1011000 < 左移3位，乘以1000
+     * ----------
+     *   1101110
+     *
+     * 因而乘法可以通过系列移位和加法完成。最后一个1可通过b&~(b-1)求得，可通过b& (b-1)去掉，为了高效地得到左移的位数，可提前计算一个map。
+     * ---------------------
+     * 作者：tingting256
+     * 来源：CSDN
+     * 原文：https://blog.csdn.net/tingting256/article/details/52550188
+     * 版权声明：本文为博主原创文章，转载请附上博文链接！
+     * @param a
+     * @param b
+     * @return
+     */
+    public int MyMuti(int a, int b){
+
+        Boolean flag = (b < 0);
+        if(flag) b = -b;
+
+        //多态的体现，使用父类的引用指向子类的实现
+        //这样做的好处是只用关心接口的方法而不用关心具体的实现
+        Map<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i < 32; i++) {
+            map.put(1<<i,i);
+        }
+        int sum = 0;
+        while(b > 0){
+            int last = b & (~b + 1);    //取得最后一个1
+            int count = map.get(last);  //获取移位的次数
+            sum += a << count;
+            b = b & (b-1);  //去掉最后一个1
+
+        }
+
+        if(flag) sum = -sum;
+        return sum;
+
     }
     //类结束括号
 }
