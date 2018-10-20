@@ -104,11 +104,11 @@ public class MyMath {
      * @param b
      * @return
      */
-    public int UDAdd(int a, int b) {
+    public int myAdd(int a, int b) {
 
         //不进位加法
-        int result,carry;
-        result= a ^ b;
+        int result, carry;
+        result = a ^ b;
 
         //如果两数相加有进位
         carry = (a & b) << 1;
@@ -118,7 +118,7 @@ public class MyMath {
             //不带进位的结果加上进位
             result = a ^ b;
             //判断有没有进位
-            carry = (a & b) <<1;
+            carry = (a & b) << 1;
             a = result;
             b = carry;
         }
@@ -126,15 +126,15 @@ public class MyMath {
     }
 
 
-    public int UDSub(int a, int b){
-        return UDAdd(a,UDAdd(~b,1));
+    public int mySub(int a, int b) {
+        return myAdd(a, myAdd(~b, 1));
     }
 
 
     /**
      * 二进制乘法
      * 先看一个实例：1011*1010：
-     *
+     * <p>
      * 1011
      *    * 1010
      *  ----------
@@ -142,39 +142,103 @@ public class MyMath {
      * + 1011000 < 左移3位，乘以1000
      * ----------
      *   1101110
-     *
+     * <p>
      * 因而乘法可以通过系列移位和加法完成。最后一个1可通过b&~(b-1)求得，可通过b& (b-1)去掉，为了高效地得到左移的位数，可提前计算一个map。
      * ---------------------
      * 作者：tingting256
      * 来源：CSDN
      * 原文：https://blog.csdn.net/tingting256/article/details/52550188
      * 版权声明：本文为博主原创文章，转载请附上博文链接！
+     *
      * @param a
      * @param b
      * @return
      */
-    public int MyMuti(int a, int b){
+    public int MyMuti(int a, int b) {
 
         Boolean flag = (b < 0);
-        if(flag) b = -b;
+        if (flag) b = -b;
 
         //多态的体现，使用父类的引用指向子类的实现
         //这样做的好处是只用关心接口的方法而不用关心具体的实现
-        Map<Integer,Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < 32; i++) {
-            map.put(1<<i,i);
+            map.put(1 << i, i);
         }
         int sum = 0;
-        while(b > 0){
+        while (b > 0) {
             int last = b & (~b + 1);    //取得最后一个1
             int count = map.get(last);  //获取移位的次数
             sum += a << count;
-            b = b & (b-1);  //去掉最后一个1
+            b = b & (b - 1);  //去掉最后一个1
 
         }
 
-        if(flag) sum = -sum;
+        if (flag) sum = -sum;
         return sum;
+    }
+
+
+    public int myDiv(int a, int b) {
+        boolean flag = (a < 0) ^ (b < 0);
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        if (a < b) return 0;
+        int msb = 0;
+
+        //找到 b 大于 a 时的比例
+        while ((b << msb) < a) {
+            msb++;
+        }
+
+        //q是余数
+        int q = 0;
+        for (int i = msb; i >= 0; i--) {
+
+            //处理越界问题,即 b 左移 i 位后大于 a 的情况
+            //如果 b 越界,忽略这次循环
+            if ((b << i) > a) continue;
+
+            //加上每次的商,因为每次的 i 不可能相同,因此这里的 或 就相当于 加
+            q |= (1 << i);
+
+            //更新被除数的值
+            a -= (b << i);
+        }
+        if (flag) return -q;
+        return q;
+    }
+
+
+    /**
+     * 思路：
+     * 除法就是看 被除数 里面有多少个 除数
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public int myDiv_v2(int a, int b) {
+        //先去除符号的影响，都转换为正数
+
+        int dividend = a > 0 ? a : myAdd(~a, 1);    //被除数
+        int divisor = b > 0 ? b : myAdd(~b, 1);  //除数
+
+        int quotient = 0;   //商
+        int remainder = 0;  //余数
+
+        for (int i = 31; i >= 0; i--) {
+            if ((dividend >> i) >= divisor) {
+                quotient = myAdd(quotient, 1 << i);
+                dividend = mySub(dividend, divisor << i);
+            }
+        }
+        if ((a ^ b) < 0) {
+            quotient = myAdd(~quotient, 1);
+        }
+
+        remainder = b > 0 ? dividend : myAdd(~dividend, 1);
+        return quotient;
 
     }
     //类结束括号
