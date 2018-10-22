@@ -1,7 +1,7 @@
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class UDSet {
+public class MySet {
     public static void main(String[] args) {
 
         //HashSet使用HashMap实现，key为用户输入的key，value为生成的一个PRESEANT
