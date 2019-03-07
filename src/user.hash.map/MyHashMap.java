@@ -97,7 +97,26 @@ public class MyHashMap<K,V> implements BashMap<K,V> {
     }
 
     @Override
+    //思路：
+        //通过key计算出index
+        //通过比较链表中的key是否与传入的key相等
+        //如果不等，通过next查询
+        //如果相等，返回value
     public V get(K k) {
-        return v;
+        int index = getIndex(k, table.length);
+        MyEntry<K, V> entry = table[index];
+        //如果取出的entry为空
+        if(entry == null){
+            throw new NullPointerException();
+        }
+        //如果取出的entry不为空，依次比较key是否相等
+        if(entry.getKey() == k || k.equals(entry.getKey())){
+            return entry.v;
+        }else{
+            entry = entry.next;
+        }
+        //如果遍历完list还是找不到
+        return null;
     }
+
 }

@@ -7,16 +7,19 @@ package user.hash.map;
  * @param <K>
  * @param <V>
  */
-public class Entry<K,V> implements BaseEntry<K,V> {
+public class MyEntry<K,V> implements BaseEntry<K,V> {
     K k;
     V v;
-    Entry<K,V> next;
+    MyEntry<K,V> next;
 
     //构造器
-    public Entry(K k,V v){
+    public MyEntry(K k,V v, MyEntry<K,V> next){
         this.k = k;
         this.v = v;
         this.next = next;
+    }
+
+    public MyEntry(K k, V v) {
     }
 
     @Override
