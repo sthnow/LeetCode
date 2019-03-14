@@ -1,3 +1,5 @@
+package main.algorithm;
+
 public class ListQ {
 
     /* public ListQ.ListNode printList(ListQ.ListNode listNode){

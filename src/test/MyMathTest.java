@@ -1,3 +1,5 @@
+import main.algorithm.MyMath;
+
 public class MyMathTest {
 
     public static void main(String[] args) {

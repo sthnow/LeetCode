@@ -1,3 +1,7 @@
+package test;
+
+import main.algorithm.PointToOffer;
+
 public class PointToOfferTest {
     public static void main(String[] args) {
 

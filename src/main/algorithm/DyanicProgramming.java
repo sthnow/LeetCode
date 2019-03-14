@@ -1,3 +1,5 @@
+package main.algorithm;
+
 import java.util.Arrays;
 
 public class DyanicProgramming {

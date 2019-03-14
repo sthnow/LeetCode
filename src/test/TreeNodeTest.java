@@ -1,3 +1,8 @@
+package test;
+
+import main.algorithm.Soultion;
+import main.algorithm.TreeNode;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;

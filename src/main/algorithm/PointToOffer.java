@@ -1,3 +1,5 @@
+package main.algorithm;
+
 public class PointToOffer {
 
     /**

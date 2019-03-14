@@ -1,4 +1,4 @@
-package sort;
+package main.algorithm.sort;
 
 public class mergeSort {
     public int[] sort(int[] a, int l, int r) {

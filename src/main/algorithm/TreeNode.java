@@ -1,3 +1,5 @@
+package main.algorithm;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -18,7 +20,7 @@ public class TreeNode<T> {
 }
 
 
-class Soultion<T> {
+public class Soultion<T> {
 
 
     private static boolean isSymmetrical(TreeNode left, TreeNode right) {
