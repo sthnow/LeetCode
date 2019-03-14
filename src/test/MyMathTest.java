@@ -1,4 +1,7 @@
-import main.algorithm.MyMath;
+package test;
+
+import algorithm.MyMath;
+
 
 public class MyMathTest {
 
