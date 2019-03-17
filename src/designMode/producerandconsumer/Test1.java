@@ -1,5 +1,9 @@
 package designMode.producerandconsumer;
 
+
+/**
+ * 生产者消费者模型，使用wait()和notify()方法实现
+ */
 public class Test1 {
     private static Integer count = 0;
     private static final Integer FULL = 10;
