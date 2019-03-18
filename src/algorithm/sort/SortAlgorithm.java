@@ -18,11 +18,11 @@ public class SortAlgorithm {
         if (unsort.length == 0) return unsort;
 
         for (int i = 0; i < unsort.length; i++) {
-            for (int j = i + 1; j < unsort.length; j++) {
-                if (unsort[i] > unsort[j]) {
-                    int temp = unsort[i];
-                    unsort[i] = unsort[j];
-                    unsort[j] = temp;
+            for (int j = 0; j < unsort.length - i - 1; j++) {
+                if (unsort[j] > unsort[j + 1]) {
+                    int temp = unsort[j];
+                    unsort[j] = unsort[j + 1];
+                    unsort[j + 1] = temp;
                 }
             }
         }
