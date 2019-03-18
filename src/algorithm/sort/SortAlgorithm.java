@@ -134,7 +134,7 @@ public class SortAlgorithm {
      * @param right
      */
     public void quickSortLeft(int[] unsort, int left, int right) {
-        if (left > right || unsort.length == 1)
+        if (left < 0 || right > unsort.length || left > right || unsort.length < 1)
             return;
 
         int i = left, j = right;
