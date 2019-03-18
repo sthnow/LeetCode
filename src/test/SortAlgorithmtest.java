@@ -9,7 +9,7 @@ public class SortAlgorithmtest {
 
     public static void main(String[] args) {
         SortAlgorithm sort = new SortAlgorithm();
-        int[] unSort = new int[]{2,1,5,3,6,3,5,3,7,3,8,9,7,4};
+        int[] unSort = new int[]{5,1,3,2,4,7};
 
         //冒泡排序
 //        System.out.println("冒泡排序结果"+ Arrays.toString(sort.bubbleSort(unSort)));
@@ -19,7 +19,8 @@ public class SortAlgorithmtest {
 //        System.out.println("插入排序结果"+ Arrays.toString(sort.insertSort(unSort)));
 //        System.out.println("=================================");
 //        System.out.println("快速排序结果"+ Arrays.toString());
-        sort.quickSort(unSort,0,13);
+//        sort.quickSortMid(unSort,0,5);
+        sort.quickSortLeft(unSort,0,5);
         System.out.println(Arrays.toString(unSort));
     }
 }

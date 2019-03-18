@@ -89,7 +89,14 @@ public class SortAlgorithm {
     }
 
 
-    public void quickSort(int[] unsort, int head, int tail) {
+    /**
+     * 快速排序-以中间值作为基准值
+     *
+     * @param unsort
+     * @param head
+     * @param tail
+     */
+    public void quickSortMid(int[] unsort, int head, int tail) {
 
         //判断不合法的情况
         if (head >= tail || unsort == null || unsort.length <= 1)
@@ -97,7 +104,7 @@ public class SortAlgorithm {
 
         int i = head, j = tail, privot = unsort[(head + tail) / 2];
 
-        while (i < j) {
+        while (i <= j) {
             while (unsort[i] < privot) {
                 i++;
             }
@@ -114,7 +121,46 @@ public class SortAlgorithm {
                 j--;
             }
         }
-        quickSort(unsort, head, i - 1);
-        quickSort(unsort, j + 1, tail);
+        quickSortMid(unsort, head, i - 1);
+        quickSortMid(unsort, j + 1, tail);
+    }
+
+
+    /**
+     * 快速排序-以最左边的值为基准值
+     *
+     * @param unsort
+     * @param left
+     * @param right
+     */
+    public void quickSortLeft(int[] unsort, int left, int right) {
+        if (left > right || unsort.length == 1)
+            return;
+
+        int i = left, j = right;
+
+        int pivot = unsort[left];
+
+        while (i < j) {
+            while (pivot < unsort[j] && i < j) {
+                j--;
+            }
+            if (i < j) {
+                unsort[i] = unsort[j];
+                i++;
+            }
+
+            while (pivot > unsort[i] && i < j) {
+                i++;
+            }
+            if (i < j) {
+                unsort[j] = unsort[i];
+                j--;
+            }
+        }
+        unsort[i] = pivot;
+
+        quickSortLeft(unsort,left,i-1);
+        quickSortLeft(unsort,j+1,right);
     }
 }
