@@ -137,7 +137,7 @@ public class Array {
      * @param nums
      * @param k
      */
-    public void rotate(int[] nums, int k) {
+    public void rotate_v1(int[] nums, int k) {
 //        思路1：
 //            只要能实现向右旋转1次，那么就可以实现向右旋转n次
 //            向右旋转1次，先将数组最后一位保存到temp中，然后将数组的每一位都向右移动
@@ -158,4 +158,34 @@ public class Array {
             nums[0] = temp;
         }
     }
+
+    public void rotate_v2(int[] nums, int k) {
+//        思路：
+//          利用三次旋转达到要求
+//          第一次旋转将数组全部翻转一次，[1,2,3,4,5,6]——[6,5,4,3,2,1]
+//          第二次将[0，k)的数字翻转
+//          第三次将[k,nums.length-1]的数字翻转
+//          时间复杂福O(n)
+
+        //判断错误输入情况
+        if(nums.length <= 1 || k ==0 || k==nums.length)
+            return;
+
+        int time = k % nums.length;
+        //翻转数组
+        reverse(nums,0,nums.length - 1);
+        reverse(nums,0,time - 1 );
+        reverse(nums,time,nums.length - 1);
+    }
+
+        //定义翻转函数
+    public void reverse(int[] nums,int start,int end){
+        for(int i = start; i <= (start + end) / 2  ; i++){
+            int temp = nums[i];
+            nums[i] = nums[start + end - i];
+            nums[start + end - i] = temp;
+        }
+}
+
+
 }
