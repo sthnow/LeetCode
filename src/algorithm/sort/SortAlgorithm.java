@@ -160,7 +160,77 @@ public class SortAlgorithm {
         }
         unsort[i] = pivot;
 
-        quickSortLeft(unsort,left,i-1);
-        quickSortLeft(unsort,j+1,right);
+        quickSortLeft(unsort, left, i - 1);
+        quickSortLeft(unsort, j + 1, right);
+    }
+
+
+    /**
+     * 选择排序v1
+     *
+     * @param sort
+     */
+    public void selectSort_v1(int[] sort) {
+        if (sort.length <= 1)
+            return;
+
+        for (int i = 0; i < sort.length; i++) {
+            int min = sort[i];
+            int index = i;
+            for (int j = i; j < sort.length; j++) {
+                if (min > sort[j]) {
+                    min = sort[j];
+                    index = j;
+                }
+            }
+            int temp = sort[i];
+            sort[i] = sort[index];
+            sort[index] = temp;
+        }
+    }
+
+
+    /**
+     * 插入排序v1
+     * @param sort
+     */
+    public void insertSort_v1(int[] sort){
+        for(int i = 0; i< sort.length; i++){
+            int temp = sort[i];
+            int j = i-1;
+            while(j >= 0 && sort[j] > temp){
+                sort[j+1] = sort[j];
+                j--;
+            }
+            sort[j+1] = temp;
+        }
+    }
+
+    public void quickSort_v1(int[] sort, int head, int tail){
+        if(head < 0 || tail > sort.length || head > tail || sort.length <=1)
+            return;
+
+        int basic = sort[head];
+        int i = head, j = tail;
+
+        while(i < j){
+            while(basic < sort[j] && i < j){
+                j--;
+            }
+            if(i < j){
+                sort[i] = sort[j];
+                i++;
+            }
+            while(basic > sort[i] && i < j){
+                i++;
+            }
+            if(i <j){
+                sort[j] = sort[i];
+                j--;
+            }
+        }
+        sort[i] = basic;
+        quickSort_v1(sort, head, i - 1);
+        quickSort_v1(sort,j+1,tail);
     }
 }
