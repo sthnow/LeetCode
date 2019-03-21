@@ -1,4 +1,4 @@
-package com.Second;
+package com.secondleetcod;
 
 import java.util.Arrays;
 
