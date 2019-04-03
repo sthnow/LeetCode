@@ -43,15 +43,17 @@ public class CustomerTest1 {
                 try {
                     //让线程睡眠从而进入阻塞状态，睡眠的目的是为了实现让多个线程交叉执行的目的
                     //执行该方法需要处理异常
+                    //sleep方法不会释放线程持有的锁
                     Thread.sleep(3000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //对静态变量进行同步，相当于就是对类加锁
+                //对静态变量进行同步，相当于就是对类加锁,所以只有一个线程能进入代码块
                 synchronized (LOCK) {
                     //如果生产已满，该生产线程进入wait状态
                     while (count == FULL) {
                         try {
+                            //使当前线程阻塞，wait方法会释放线程持有的锁
                             LOCK.wait();
                         } catch(Exception e) {
                             e.printStackTrace();
