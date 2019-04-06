@@ -70,7 +70,7 @@ public class LemonadeChange {
                 }
             }
             if(bills[i] == 20){
-                if((ten < 1 && five < 3 ) || five < 1){
+                if(five < 3 && ten < 1 || five < 1){
                     return false;
                 } else if(five >0 && ten > 0 ){
                     five--;
